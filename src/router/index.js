@@ -1,5 +1,11 @@
-import { createRouter, createWebHashHistory } from "vue-router";
-import { defineAsyncComponent } from 'vue';
+/**
+ * @Author: hqwx.com
+ * @Date: 2024-07-05 14:40:34
+ * @LastEditors: WRG(woter_wang@live.com)
+ * @LastEditTime: 2024-07-05 14:52:14
+ * @😍: 😃😃
+ */
+import vueRouter from "vue-router";
 const routes = [
   {
     path: "/",
@@ -16,9 +22,10 @@ const routes = [
   },
 ];
 
-const router = createRouter({
-  history: createWebHashHistory(),
+const router = new vueRouter({
+  // mode: 'history',
+  mode: 'hash',
   routes,
 });
-
+console.log(3333,router);
 export default router;

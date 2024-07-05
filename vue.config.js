@@ -1,11 +1,11 @@
 /**
  * @Author: hqwx.com
- * @Date: 2024-07-03 23:31:14
+ * @Date: 2024-07-05 14:30:12
  * @LastEditors: WRG(woter_wang@live.com)
- * @LastEditTime: 2024-07-05 12:16:10
+ * @LastEditTime: 2024-07-05 14:44:16
  * @😍: 😃😃
  */
-const { defineConfig } = require("@vue/cli-service");
+const { defineConfig } = require('@vue/cli-service')
 const path = require("path");
 module.exports = defineConfig({
   transpileDependencies: true,
@@ -17,4 +17,5 @@ module.exports = defineConfig({
       },
     },
   }
-});
+
+})
