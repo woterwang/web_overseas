@@ -2,7 +2,7 @@
  * @Author: hqwx.com
  * @Date: 2024-07-05 18:11:56
  * @LastEditors: WRG(woter_wang@live.com)
- * @LastEditTime: 2024-07-05 20:53:57
+ * @LastEditTime: 2024-07-05 21:05:12
  * @😍: 😃😃
 -->
 <template>
@@ -353,6 +353,7 @@ export default {
 
 				&:hover {
 					border-color: $purple_1;
+					
 				}
 			}
 		}
@@ -369,6 +370,7 @@ export default {
 						background: url('~@/assets/svg/icon_king.svg') no-repeat center center;
 						background-size: contain;
 						margin: 0 10px 0 0;
+						
 					}
 				}
 			}
@@ -435,7 +437,6 @@ export default {
 
 					&:hover {
 						border-color: $white;
-						// border-image: linear-gradient(180deg, $white, $gold) 1;
 					}
 				}
 
@@ -455,7 +456,6 @@ export default {
 
 					&:hover {
 						border-color: $gold;
-						// border-image: linear-gradient(180deg, $white, $gold) 1;
 					}
 				}
 
@@ -474,7 +474,6 @@ export default {
 
 					&:hover {
 						border-color: $purple;
-						// border-image: linear-gradient(180deg, $white, $gold) 1;
 					}
 				}
 			}
