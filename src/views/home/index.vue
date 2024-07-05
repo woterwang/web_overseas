@@ -2,7 +2,7 @@
  * @Author: hqwx.com
  * @Date: 2024-07-05 12:03:07
  * @LastEditors: WRG(woter_wang@live.com)
- * @LastEditTime: 2024-07-05 17:16:13
+ * @LastEditTime: 2024-07-05 18:16:02
  * @😍: 😃😃
 -->
 <template>
@@ -75,12 +75,12 @@ export default {
 		//监控最后一个 part_img 是否进入视口
 		const lastObserver = new IntersectionObserver(this.handleLastIntersection, {
 			root: null,
-			rootMargin: '10px',
+			rootMargin: '0px',
 			threshold: 0
 		})
 		const part_imgs = this.$el.querySelectorAll('.part_img')
-		// lastObserver.observe(part_imgs[ part_imgs.length - 1 ]) // 5-1
-		lastObserver.observe(document.querySelector('.page_footer')) // 5-1
+		lastObserver.observe(part_imgs[ part_imgs.length - 1 ]) // 5-1
+		// lastObserver.observe(document.querySelector('.page_footer')) // 5-1
 	},
 	methods: {
 		//监控part_video是否离开视口
@@ -189,9 +189,10 @@ export default {
 					}
 				}
 				.bottom {
-					// width: 100%;
+					width: 100%;
 					img {
-						// width: 100%;
+						width: auto;
+						max-width: 100%;
 					}
 				}
 
