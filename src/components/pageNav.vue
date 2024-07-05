@@ -2,14 +2,16 @@
  * @Author: hqwx.com
  * @Date: 2024-07-04 21:34:03
  * @LastEditors: WRG(woter_wang@live.com)
- * @LastEditTime: 2024-07-05 13:26:02
+ * @LastEditTime: 2024-07-05 14:13:49
  * @😍: 😃😃
 -->
 <template>
 	<nav class="page_nav">
+		<div class="log_txt">FantasyLabs</div>
 		<div class="nav_item link_item link_create">Create</div>
 		<div class="nav_item link_item link_repair">Repair</div>
 		<div class="nav_item member_item member_level">Pro</div>
+		<div class="nav_item member_item member_normal">Upgrade</div>
 		<div class="nav_item member_item member_xp">888</div>
 		<div class="nav_item user_head"></div>
 	</nav>
@@ -29,20 +31,26 @@ export default {
 	@import '~@/styles/_var.scss';
 	.page_nav {
 		display: flex;
-		justify-content: flex-end;
 		align-items: center;
 		height: 72px;
-		font-size: 18px;
+		font-size: 16px;
 		background-color: $black_01;
+		.log_txt{
+			margin: 0 auto 0 0;
+			color: $white;
+			justify-self: flex-start;
+			font-size: 24px;
+		}
 		.nav_item {
 			display: flex;
 			align-items: center;
 			color: $white;
+			cursor: pointer;
 
 			&.link_item {
 				margin: 0 40px 0 0;
 
-				&.link_create{
+				&.link_create {
 					&:before {
 						content: '';
 						margin-right: 10px;
@@ -53,7 +61,7 @@ export default {
 					}
 				}
 
-				&.link_repair{
+				&.link_repair {
 					&:before {
 						content: '';
 						margin-right: 10px;
@@ -63,7 +71,6 @@ export default {
 						flex: 1;
 					}
 				}
-
 			}
 
 			&.member_item {
@@ -81,6 +88,11 @@ export default {
 						height: 18px;
 						background: url('~@/assets/svg/icon_king.svg') no-repeat center center;
 					}
+				}
+				&.member_normal {
+					padding: 8px 30px;
+					background: $pink;
+					border: 0;
 				}
 				&.member_xp {
 					padding: 8px 20px;

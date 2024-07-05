@@ -2,7 +2,7 @@
  * @Author: hqwx.com
  * @Date: 2024-07-05 12:19:21
  * @LastEditors: WRG(woter_wang@live.com)
- * @LastEditTime: 2024-07-05 13:08:24
+ * @LastEditTime: 2024-07-05 14:14:59
  * @😍: 😃😃
 -->
 <template>
@@ -29,7 +29,7 @@ export default {
 
 <style lang="scss" scoped>
 .page_layout {
-	max-width: 1920px;
+	max-width: 1120px;
 	margin: 0 auto;
 }
 </style>

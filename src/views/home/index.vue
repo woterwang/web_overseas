@@ -7,7 +7,7 @@
 -->
 <template>
 	<div class="home_page">
-		<PageNav />
+		<!-- <PageNav /> -->
 		<div class="home">home</div>
 	</div>
 </template>
