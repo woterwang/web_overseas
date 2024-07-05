@@ -2,7 +2,7 @@
  * @Author: hqwx.com
  * @Date: 2024-07-04 21:34:03
  * @LastEditors: WRG(woter_wang@live.com)
- * @LastEditTime: 2024-07-05 14:13:49
+ * @LastEditTime: 2024-07-05 15:20:52
  * @😍: 😃😃
 -->
 <template>
@@ -35,6 +35,7 @@ export default {
 		height: 72px;
 		font-size: 16px;
 		background-color: $black_01;
+		padding: 0 20px;
 		.log_txt{
 			margin: 0 auto 0 0;
 			color: $white;

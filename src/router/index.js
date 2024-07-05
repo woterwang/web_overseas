@@ -2,7 +2,7 @@
  * @Author: hqwx.com
  * @Date: 2024-07-05 14:40:34
  * @LastEditors: WRG(woter_wang@live.com)
- * @LastEditTime: 2024-07-05 14:52:14
+ * @LastEditTime: 2024-07-05 15:23:50
  * @😍: 😃😃
  */
 import vueRouter from "vue-router";
@@ -27,5 +27,4 @@ const router = new vueRouter({
   mode: 'hash',
   routes,
 });
-console.log(3333,router);
 export default router;
