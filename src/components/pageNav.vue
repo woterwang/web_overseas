@@ -2,7 +2,7 @@
  * @Author: hqwx.com
  * @Date: 2024-07-04 21:34:03
  * @LastEditors: WRG(woter_wang@live.com)
- * @LastEditTime: 2024-07-05 15:20:52
+ * @LastEditTime: 2024-07-06 14:30:39
  * @😍: 😃😃
 -->
 <template>
@@ -14,6 +14,7 @@
 		<div class="nav_item member_item member_normal">Upgrade</div>
 		<div class="nav_item member_item member_xp">888</div>
 		<div class="nav_item user_head"></div>
+		<div class="nav_item login_btn" @click="gotoLogin">Login</div>
 	</nav>
 </template>
 <script>
@@ -24,7 +25,12 @@ export default {
 		return {
 			status: 90,
 		}
-	}
+	},
+	methods: {
+		gotoLogin() {
+			this.$router.push({ path: '/login' })
+		}
+	},
 }
 </script>
 <style lang="scss" scoped>
@@ -35,7 +41,7 @@ export default {
 		height: 72px;
 		font-size: 16px;
 		background-color: $black_01;
-		padding: 0 20px;
+		padding: 0 30px;
 		.log_txt{
 			margin: 0 auto 0 0;
 			color: $white;
@@ -115,6 +121,14 @@ export default {
 				border: 1px solid $gray;
 				margin: 0;
 				background: url('~@/assets/svg/icon_user.svg') no-repeat center center;
+			}
+
+			&.login_btn{
+				padding: 8px 30px;
+				background: $pink;
+				border: 0;
+				border-radius: 20px;
+				margin: 0 0 0 auto;
 			}
 		}
 	}
