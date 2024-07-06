@@ -2,7 +2,7 @@
  * @Author: hqwx.com
  * @Date: 2024-07-05 12:03:07
  * @LastEditors: WRG(woter_wang@live.com)
- * @LastEditTime: 2024-07-07 01:22:55
+ * @LastEditTime: 2024-07-07 01:32:08
  * @😍: 😃😃
 -->
 <template>
@@ -188,7 +188,7 @@ export default {
 				justify-content: center;
 				align-items: center;
 				flex-direction: column;
-				padding: 50px 0 0 0;
+				padding: 50px 0;
 				.top {
 					width: 58%;
 					text-align: center;
@@ -221,6 +221,7 @@ export default {
 								height: 48px;
 								background: url('~@/assets/images/icon_#{$i}.png') no-repeat center center;
 								background-size: cover;
+								margin: 0 0 20px 0;
 							}
 						} @else {
 							// background: url('~@/assets/img/home_bg_#{$i}.png') no-repeat center center;

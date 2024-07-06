@@ -2,7 +2,7 @@
  * @Author: hqwx.com
  * @Date: 2024-07-06 16:17:14
  * @LastEditors: WRG(woter_wang@live.com)
- * @LastEditTime: 2024-07-07 00:59:18
+ * @LastEditTime: 2024-07-07 01:39:02
  * @😍: 😃😃
 -->
 <template>
@@ -621,13 +621,13 @@ export default {
 						background-color: $gray_02;
 					}
 					.canvas_type_2_3 {
-						width: calc(var(--w) * 0.7);
+						width: calc(var(--w) * 0.67);
 						height: calc(var(--w) * 1);
 						background-color: $gray_02;
 					}
 					.canvas_type_3_2 {
 						width: calc(var(--w) * 1);
-						height: calc(var(--w) * 0.7);
+						height: calc(var(--w) * 0.67);
 						background-color: $gray_02;
 					}
 					.canvas_type_3_4 {
@@ -641,13 +641,13 @@ export default {
 						background-color: $gray_02;
 					}
 					.canvas_type_9_16 {
-						width: calc(var(--w) * 0.56);
+						width: calc(var(--w) * 0.562);
 						height: calc(var(--w) * 1);
 						background-color: $gray_02;
 					}
 					.canvas_type_16_9 {
 						width: calc(var(--w) * 1);
-						height: calc(var(--w) * 0.56);
+						height: calc(var(--w) * 0.562);
 						background-color: $gray_02;
 					}
 				}
