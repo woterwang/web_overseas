@@ -2,7 +2,7 @@
  * @Author: hqwx.com
  * @Date: 2024-07-06 16:17:14
  * @LastEditors: WRG(woter_wang@live.com)
- * @LastEditTime: 2024-07-06 23:01:15
+ * @LastEditTime: 2024-07-06 23:06:01
  * @😍: 😃😃
 -->
 <template>
@@ -233,52 +233,52 @@ export default {
 			optionStyleList: [
 				{
 					id: 1,
-					img: require('@/assets/temp1.png'),
+					img: require('@/assets/temp3.png'),
 					text: 'Style 1',
 				},
 				{
 					id: 2,
-					img: require('@/assets/temp1.png'),
+					img: require('@/assets/temp3.png'),
 					text: 'Style 2',
 				},
 				{
 					id: 3,
-					img: require('@/assets/temp1.png'),
+					img: require('@/assets/temp3.png'),
 					text: 'Style 3',
 				},
 				{
 					id: 4,
-					img: require('@/assets/temp1.png'),
+					img: require('@/assets/temp3.png'),
 					text: 'Style 4',
 				},
 				{
 					id: 5,
-					img: require('@/assets/temp1.png'),
+					img: require('@/assets/temp3.png'),
 					text: 'Style 5',
 				},
 				{
 					id: 6,
-					img: require('@/assets/temp1.png'),
+					img: require('@/assets/temp3.png'),
 					text: 'Style 6',
 				},
 				{
 					id: 7,
-					img: require('@/assets/temp1.png'),
+					img: require('@/assets/temp3.png'),
 					text: 'Style 7',
 				},
 				{
 					id: 8,
-					img: require('@/assets/temp1.png'),
+					img: require('@/assets/temp3.png'),
 					text: 'Style 8',
 				},
 				{
 					id: 9,
-					img: require('@/assets/temp1.png'),
+					img: require('@/assets/temp3.png'),
 					text: 'Style 9',
 				},
 				{
 					id: 10,
-					img: require('@/assets/temp1.png'),
+					img: require('@/assets/temp3.png'),
 					text: 'Style 10',
 				},
 			],
@@ -548,6 +548,12 @@ export default {
 							overflow: hidden;
 							margin: 0 0 10px 0;
 							border: 1px solid transparent;
+
+							img {
+								width: 100%;
+								height: 100%;
+								object-fit: cover;
+							}
 						}
 						.style_item_text {
 							font-size: 16px;

@@ -2,7 +2,7 @@
 	<div class="choice_card">
 		<div class="choice_card_img">
 			<img
-				src="https://via.placeholder.com/320x430"
+				src="../../assets/temp3.png"
 				alt=""
 			>
 		</div>
@@ -59,8 +59,9 @@ export default {
 			opacity: 0;
 			position: absolute;
 			inset: 0;
-			background: rgba(0, 0, 0, 0.3);
+			background: rgba(0, 0, 0, 0.4);
 			z-index: 1;
+			transition: all 0.8s;
 		}
 
 		.choice_card_btn {
@@ -78,16 +79,15 @@ export default {
 			color: $black;
 			cursor: pointer;
 			z-index: 2;
+			transition: all 0.5s;
 		}
 
 		&:hover {
 			.choice_card_desc {
 				opacity: 1;
-				transition: all 0.5s;
 			}
 			.choice_card_btn {
 				opacity: 1;
-				transition: all 0.5s;
 			}
 		}
 	}
