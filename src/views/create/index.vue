@@ -2,19 +2,30 @@
  * @Author: hqwx.com
  * @Date: 2024-07-06 16:17:14
  * @LastEditors: WRG(woter_wang@live.com)
- * @LastEditTime: 2024-07-06 20:07:19
+ * @LastEditTime: 2024-07-06 23:01:15
  * @😍: 😃😃
 -->
 <template>
 	<section class="page_create">
 		<section class="left">
 			<div class="tab">
-				<div class="tab_item">Text to Image</div>
-				<div class="tab_item">Image Repair</div>
+				<div
+					class="tab_item"
+					@click="changeLeftTab(0)"
+					:class="{active: leftCurrTab == 0}"
+				>Text to Image</div>
+				<div
+					class="tab_item"
+					@click="changeLeftTab(1)"
+					:class="{active: leftCurrTab == 1}"
+				>Image Repair</div>
 			</div>
 			<div class="options">
 				<!-- text_to_image -->
-				<div class="text_to_image">
+				<div
+					class="text_to_image"
+					v-show="leftCurrTab == 0"
+				>
 					<div class="option_text">
 						<textarea
 							name=""
@@ -40,7 +51,7 @@
 						</label>
 					</div>
 					<div class="option_item option_quantity">
-						<h4 class="option_title">Quantity</h4>
+						<h4 class="option_title"><span>Quantity</span><span class="to_upgrade">Upgrade to unlock</span></h4>
 						<div class="list">
 							<span class="quantity_level active">1</span>
 							<span class="quantity_level disabled">2</span>
@@ -101,7 +112,10 @@
 					</div>
 				</div>
 				<!-- Image Repair -->
-				<div class="image_repair">
+				<div
+					class="image_repair"
+					v-show="leftCurrTab == 1"
+				>
 					<div class="option_item option_drop_img">
 						<h4 class="option_title">Image</h4>
 						<div class="drop_img">
@@ -146,7 +160,7 @@
 						</div>
 					</div>
 					<div class="option_item option_quantity">
-						<h4 class="option_title">Quantity</h4>
+						<h4 class="option_title"><span>Quantity</span><span class="to_upgrade">Upgrade to unlock</span></h4>
 						<div class="list">
 							<span class="quantity_level active">1</span>
 							<span class="quantity_level disabled">2</span>
@@ -178,19 +192,42 @@
 			</div>
 		</section>
 		<section class="right">
+			<div class="right_tab">
+				<div
+					class="tab_item"
+					@click="changeRightTab(0)"
+					:class="{active: rightCurrTab == 0}"
+				>Editor's Choice</div>
+				<div
+					class="tab_item"
+					@click="changeRightTab(1)"
+					:class="{active: rightCurrTab == 1}"
+				>My Output</div>
+			</div>
+			<div class="right_content">
+				<ChoiceCard v-show="rightCurrTab == 0" />
+				<OutputCard v-show="rightCurrTab == 1" />
+			</div>
 		</section>
 	</section>
 </template>
 
 <script>
-import Vue from 'vue'
 import VueSlider from 'vue-slider-component'
 import 'vue-slider-component/theme/default.css'
-Vue.component('VueSlider', VueSlider)
 export default {
 	name: "Create",
+	components: {
+		VueSlider,
+		ChoiceCard: () => import('./ChoiceModule.vue'),
+		OutputCard: () => import('./OutputModule.vue'),
+	},
 	data () {
 		return {
+			//当前选项卡-左侧 - 0: Text to Image, 1: Image Repair
+			leftCurrTab: this.$route.params.type || 0,
+			//当前选项卡-右侧 - 0: Editor's Choice, 1: My Output
+			rightCurrTab: 0,
 			//默认强度
 			currIntensity: 0,
 			optionStyleList: [
@@ -248,12 +285,20 @@ export default {
 		}
 	},
 	methods: {
-		gotoLogin () {
-			this.$router.push({ path: '/login' })
+		changeLeftTab (type) {
+			this.leftCurrTab = type
+		},
+		changeRightTab (type) {
+			this.rightCurrTab = type
 		},
 		changeIntensity (e) {
 			console.log(e.target.value)
 		},
+	},
+	watch: {
+		['$route.params.type'](newValue, oldValue) {
+			this.leftCurrTab = newValue
+		}
 	},
 }
 </script>
@@ -261,18 +306,19 @@ export default {
 <style lang="scss" scoped>
 	@import '~@/styles/_var.scss';
 	.page_create {
-		width: 1920px;
+		width: 100%;
 		margin: 0 auto;
 		min-height: var(--contentH);
 		color: $white;
 		padding: 20px 10px;
 		display: flex;
-		justify-content: space-between;
-
+		justify-content: center;
+		overflow: hidden;
 		.left {
 			width: 524px;
 			display: flex;
 			flex-direction: column;
+			height: inherit;
 			.tab {
 				display: flex;
 				justify-content: center;
@@ -291,7 +337,7 @@ export default {
 					align-items: center;
 					border-radius: 6px;
 					cursor: pointer;
-					&:hover,
+					// &:hover,
 					&.active {
 						background-color: $white;
 						color: $black;
@@ -302,14 +348,36 @@ export default {
 				border-radius: 20px;
 				background-color: $black_01;
 				padding: 20px;
+				min-height: inherit;
 
 				.option_item {
 					margin: 20px 0 0 0;
-
+					
 					.option_title {
 						font-size: 16px;
 						font-weight: 500;
 						margin: 0 0 10px 0;
+						position: relative;
+	
+						.to_upgrade {
+							color: $pink;
+							font-size: 14px;
+							position: absolute;
+							top: 0;
+							right: 10px;
+							cursor: pointer;
+							display: flex;
+							align-items: center;
+	
+							&::after {
+								content: '';
+								margin-left: 5px;
+								width: 18px;
+								height: 18px;
+								background: url('~@/assets/svg/icon_to_upgrade.svg') no-repeat center center;
+								background-size: contain;
+							}
+						}
 					}
 
 					.list {
@@ -398,13 +466,14 @@ export default {
 					.canvas_type {
 						width: 60px;
 						height: 72px;
-						--w: 60px;
+						--w: 18px;
+						background: red;
 						margin: 0 10px 10px 0;
 						padding: 5px;
 						border-radius: 6px;
 						display: flex;
 						flex-direction: column;
-						justify-content: space-between;
+						justify-content: space-around;
 						align-items: center;
 						background-color: $black_02;
 						border: 1px solid $black_02;
@@ -417,30 +486,25 @@ export default {
 						&:last-child {
 							margin: 0;
 						}
-
-						* {
-							&:first-child {
-								transform: scale(0.5);
-							}
-						}
 					}
 					.canvas_type_text {
 						text-align: center;
-						font-size: 16px;
+						font-size: 14px;
+						// display: none;
 					}
 					.canvas_type_1_1 {
-						width: calc(var(--w) * 1);
-						height: calc(var(--w) * 1);
+						width: var(--w);
+						height: var(--w);
 						background-color: $gray_02;
 					}
 					.canvas_type_2_3 {
-						width: calc(var(--w) * 0.5);
-						height: calc(var(--w) * 0.75);
+						width: calc(var(--w) * 0.7);
+						height: calc(var(--w) * 1);
 						background-color: $gray_02;
 					}
 					.canvas_type_3_2 {
-						width: calc(var(--w) * 0.75);
-						height: calc(var(--w) * 0.5);
+						width: calc(var(--w) * 1);
+						height: calc(var(--w) * 0.7);
 						background-color: $gray_02;
 					}
 					.canvas_type_3_4 {
@@ -454,13 +518,13 @@ export default {
 						background-color: $gray_02;
 					}
 					.canvas_type_9_16 {
-						width: calc(var(--w) * 0.45);
-						height: calc(var(--w) * 0.8);
+						width: calc(var(--w) * 0.56);
+						height: calc(var(--w) * 1);
 						background-color: $gray_02;
 					}
 					.canvas_type_16_9 {
-						width: calc(var(--w) * 0.8);
-						height: calc(var(--w) * 0.45);
+						width: calc(var(--w) * 1);
+						height: calc(var(--w) * 0.56);
 						background-color: $gray_02;
 					}
 				}
@@ -549,6 +613,7 @@ export default {
 				align-items: center;
 				width: 420px;
 				height: 48px;
+				margin: 20px 0 0 0;
 				background-color: $pink;
 				color: $white;
 				font-size: 16px;
@@ -562,6 +627,47 @@ export default {
 					background: url('~@/assets/svg/icon_create.svg') no-repeat 0 0;
 					margin: 3px 0 0 0;
 					background-size: contain;
+				}
+			}
+		}
+
+		.right {
+			flex: 1;
+			padding: 0 10px;
+			box-sizing: content-box;
+			// height: var(--contentH);
+			// overflow-y: auto;
+
+			.right_tab {
+				display: flex;
+				// justify-content: center;
+				align-items: center;
+				width: 100%;
+				height: 36px;
+				// background-color: $black_01;
+				color: $white;
+				border-radius: 8px;
+				margin: 0 0 20px 0;
+				.tab_item {
+					padding: 0 30px;
+					color: $gray;
+					display: flex;
+					font-size: 15px;
+					align-items: center;
+					border-right: 1px solid $gray;
+					cursor: pointer;
+
+					&:first-child {
+						padding-left: 0;
+					}
+
+					&:last-child {
+						border-right: none;
+					}
+
+					&.active {
+						color: $white;
+					}
 				}
 			}
 		}

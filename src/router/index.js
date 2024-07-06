@@ -29,7 +29,7 @@ const routes = [
         component: () => import("@/views/login.vue"),
       },
       {
-        path: "/create",
+        path: "/create/:type", // 动态路由 type: 0: text 1: repair
         name: "create",
         component: () => import("@/views/create/index.vue"),
       }

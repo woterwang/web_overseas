@@ -8,8 +8,8 @@
 <template>
 	<nav class="page_nav">
 		<div class="log_txt">FantasyLabs</div>
-		<div class="nav_item link_item link_create" @click="gotoCreate">Create</div>
-		<div class="nav_item link_item link_repair">Repair</div>
+		<div class="nav_item link_item link_create" @click="gotoTextCreate">Create</div>
+		<div class="nav_item link_item link_repair" @click="gotoRepairCreate">Repair</div>
 		<div class="nav_item member_item member_level">Pro</div>
 		<div class="nav_item member_item member_normal">Upgrade</div>
 		<div class="nav_item member_item member_xp">888</div>
@@ -30,8 +30,11 @@ export default {
 		gotoLogin() {
 			this.$router.push({ path: '/login' })
 		},
-		gotoCreate() {
-			this.$router.push({ path: '/create' })
+		gotoTextCreate() {
+			this.$router.push({ path: '/create/0' })
+		},
+		gotoRepairCreate() {
+			this.$router.push({ path: '/create/1' })
 		},
 	},
 }
