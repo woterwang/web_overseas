@@ -2,7 +2,7 @@
  * @Author: hqwx.com
  * @Date: 2024-07-06 16:17:14
  * @LastEditors: WRG(woter_wang@live.com)
- * @LastEditTime: 2024-07-07 00:44:12
+ * @LastEditTime: 2024-07-07 00:59:18
  * @😍: 😃😃
 -->
 <template>
@@ -51,10 +51,13 @@
 						</label>
 					</div>
 					<div class="option_item option_quantity">
-						<h4 class="option_title"><span>Quantity</span><router-link
-								to="/buy"
+						<h4 class="option_title">
+							<span>Quantity</span>
+							<router-link
+								to="/buy/0"
 								class="to_upgrade"
-							>Upgrade to unlock</router-link></h4>
+							></router-link>
+						</h4>
 						<div class="list">
 							<span class="quantity_level active">1</span>
 							<span class="quantity_level disabled">2</span>
@@ -169,10 +172,13 @@
 						</div>
 					</div>
 					<div class="option_item option_quantity">
-						<h4 class="option_title"><span>Quantity</span><router-link
-								to="/buy"
+						<h4 class="option_title">
+							<span>Quantity</span>
+							<router-link
+								to="/buy/0"
 								class="to_upgrade"
-							>Upgrade to unlock</router-link></h4>
+							></router-link>
+						</h4>
 						<div class="list">
 							<span class="quantity_level active">1</span>
 							<span class="quantity_level disabled">2</span>
@@ -376,20 +382,24 @@ export default {
 							font-size: 14px;
 							position: absolute;
 							top: 0;
-							right: 10px;
+							right: 0;
 							cursor: pointer;
+							width: 150px;
+							height: 24px;
 							display: flex;
 							align-items: center;
 							text-decoration: none;
+							background: url('~@/assets/svg/icon_goto_upgrade.svg') no-repeat 0 0 ;
+							background-size: contain;
 
-							&::after {
-								content: '';
-								margin-left: 5px;
-								width: 18px;
-								height: 18px;
-								background: url('~@/assets/svg/icon_to_upgrade.svg') no-repeat center center;
-								background-size: contain;
-							}
+							// &::after {
+							// 	content: '';
+							// 	margin-left: 5px;
+							// 	width: 18px;
+							// 	height: 18px;
+							// 	background: url('~@/assets/svg/icon_to_upgrade.svg') no-repeat center center;
+							// 	background-size: contain;
+							// }
 						}
 					}
 
@@ -474,7 +484,7 @@ export default {
 								transition: all 1s ease-in-out;
 
 								&:hover {
-									animation: rotate 1s linear;
+									animation: rotate 1s ease-in-out;
 								}
 								@keyframes rotate {
 									0% {
@@ -494,13 +504,15 @@ export default {
 								margin-right: 10px;
 
 								&:hover {
-									animation: jitter 0.5s linear;
+									animation: jitter 0.5s ease-in-out;
 								}
 								@keyframes jitter {
-									0%,50% {
+									0%,
+									50% {
 										transform: rotate(30deg);
 									}
-									30%,70% {
+									30%,
+									70% {
 										transform: rotate(-30deg);
 									}
 									100% {
