@@ -64,7 +64,7 @@ export default {
 		}
 		.login_box {
 			display: flex;
-			width: 658px;
+			// width: 658px;
 			height: 321px;
 			border-radius: 6px;
 			overflow: hidden;
@@ -110,7 +110,7 @@ export default {
 						display: flex;
 						align-items: center;
 						justify-content: center;
-						width: 100%;
+						width: 384px;
 						background-color: $white;
 						color: $black_01;
 						font-size: 16px;
@@ -120,8 +120,8 @@ export default {
 						.login_btn {
 							width: 384px;
 							height: 40px;
-							background: url('~@/assets/svg/icon_login_google.svg') no-repeat center center;
-							background-size: contain;
+							background: url('~@/assets/svg/icon_login_google.svg') no-repeat 0 0;
+							background-size: fill;
 						}
 					}
 					&.login_type_email {
