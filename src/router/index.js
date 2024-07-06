@@ -2,7 +2,7 @@
  * @Author: hqwx.com
  * @Date: 2024-07-05 14:40:34
  * @LastEditors: WRG(woter_wang@live.com)
- * @LastEditTime: 2024-07-06 14:29:48
+ * @LastEditTime: 2024-07-06 16:21:43
  * @😍: 😃😃
  */
 import vueRouter from "vue-router";
@@ -27,6 +27,11 @@ const routes = [
         path: "/login",
         name: "login",
         component: () => import("@/views/login.vue"),
+      },
+      {
+        path: "/create",
+        name: "create",
+        component: () => import("@/views/create/index.vue"),
       }
 
     ],

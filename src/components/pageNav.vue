@@ -8,7 +8,7 @@
 <template>
 	<nav class="page_nav">
 		<div class="log_txt">FantasyLabs</div>
-		<div class="nav_item link_item link_create">Create</div>
+		<div class="nav_item link_item link_create" @click="gotoCreate">Create</div>
 		<div class="nav_item link_item link_repair">Repair</div>
 		<div class="nav_item member_item member_level">Pro</div>
 		<div class="nav_item member_item member_normal">Upgrade</div>
@@ -29,7 +29,10 @@ export default {
 	methods: {
 		gotoLogin() {
 			this.$router.push({ path: '/login' })
-		}
+		},
+		gotoCreate() {
+			this.$router.push({ path: '/create' })
+		},
 	},
 }
 </script>
