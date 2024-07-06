@@ -1,3 +1,10 @@
+<!--
+ * @Author: hqwx.com
+ * @Date: 2024-07-05 16:25:01
+ * @LastEditors: WRG(woter_wang@live.com)
+ * @LastEditTime: 2024-07-07 01:08:31
+ * @😍: 😃😃
+-->
 <template>
 	<footer class="page_footer">
 		<section class="footer_content">
@@ -59,6 +66,9 @@ export default {
 				margin: 0 20px 0 0;
 				color: $gray;
 				text-decoration: none;
+				&:hover{
+					text-decoration: underline;
+				}
 			}
 		}
 	}

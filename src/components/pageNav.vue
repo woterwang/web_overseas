@@ -2,7 +2,7 @@
  * @Author: hqwx.com
  * @Date: 2024-07-04 21:34:03
  * @LastEditors: WRG(woter_wang@live.com)
- * @LastEditTime: 2024-07-06 23:43:26
+ * @LastEditTime: 2024-07-07 01:12:49
  * @😍: 😃😃
 -->
 <template>
@@ -35,6 +35,7 @@
 		<router-link
 			to="/login"
 			class="nav_item login_btn"
+			v-if="!userLogin()"
 		>Login</router-link>
 	</nav>
 </template>
@@ -46,15 +47,16 @@ export default {
 		return {
 			// 1、如果用户已有会员等级，则点击顶栏的积分icon时，会直接切到积分页；
 			// 2、如用户未有等级，则点击顶栏的升级或积分icon，都是跳转升级页，主动点击升级页下方的“credit”的tab才会切换到积分页；
-			creditUrl: this.userLevel ? '/buy/1' : '/buy/0',
+			creditUrl: this.userLevel() ? '/buy/1' : '/buy/0',
 			//用户购买某个等级后，其他两个等级都会消失，只剩当前等级居中显示；且上方不显示级别和价格信息
-			upgradeUrl: this.userLevel ? '/buy/3' : '/buy/0',
+			upgradeUrl: this.userLevel() ? '/buy/3' : '/buy/0',
 		}
 	},
 	methods: {
 		//用户是否有会员等级
 		userLevel: () => Math.random() > 0.5 ? true : false,
-
+		//用户是否登录
+		userLogin: () => Math.random() > 0.5 ? true : false,
 	},
 }
 </script>

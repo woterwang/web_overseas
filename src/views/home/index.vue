@@ -2,7 +2,7 @@
  * @Author: hqwx.com
  * @Date: 2024-07-05 12:03:07
  * @LastEditors: WRG(woter_wang@live.com)
- * @LastEditTime: 2024-07-06 23:13:42
+ * @LastEditTime: 2024-07-07 01:22:55
  * @😍: 😃😃
 -->
 <template>
@@ -43,6 +43,18 @@
 				<img src="../../assets/temp.png" />
 			</div>
 		</div>
+		<div
+			class="part part_img obout_our"
+		>
+			<div class="top">
+				<h1>Our Advantage</h1>
+			</div>
+			<div class="bottom">
+				<img src="../../assets/temp1.png" />
+			</div>
+			<p>We have the most advanced image models and efficient servers, and we can meet even the most demanding customized needs. You can't even tell whether the generated results are real or AI-generated.</p>
+		</div>
+
 		<!-- bottom btn -->
 		<router-link
 			to="/create/0"
@@ -187,6 +199,7 @@ export default {
 					p {
 						font-size: 20px;
 						margin: 0 0 40px 0;
+						text-align: center;
 					}
 				}
 				.bottom {
@@ -212,6 +225,24 @@ export default {
 						} @else {
 							// background: url('~@/assets/img/home_bg_#{$i}.png') no-repeat center center;
 						}
+					}
+				}
+
+				&.obout_our{
+					border-top: 2px solid $black_02;
+					padding: 60px 0 0 0;
+					margin: 80px 0 0 0;
+
+					.bottom{
+						width: 80%;
+					}
+
+					p{
+						width: 90%;
+						font-size: 20px;
+						margin: 40px 0;
+						text-align: center;
+
 					}
 				}
 			}
