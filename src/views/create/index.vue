@@ -2,7 +2,7 @@
  * @Author: hqwx.com
  * @Date: 2024-07-06 16:17:14
  * @LastEditors: WRG(woter_wang@live.com)
- * @LastEditTime: 2024-07-06 23:19:23
+ * @LastEditTime: 2024-07-07 00:44:12
  * @😍: 😃😃
 -->
 <template>
@@ -51,7 +51,10 @@
 						</label>
 					</div>
 					<div class="option_item option_quantity">
-						<h4 class="option_title"><span>Quantity</span><router-link to="/buy" class="to_upgrade">Upgrade to unlock</router-link></h4>
+						<h4 class="option_title"><span>Quantity</span><router-link
+								to="/buy"
+								class="to_upgrade"
+							>Upgrade to unlock</router-link></h4>
 						<div class="list">
 							<span class="quantity_level active">1</span>
 							<span class="quantity_level disabled">2</span>
@@ -125,14 +128,20 @@
 					</div>
 					<div class="option_item option_text">
 						<h4 class="option_title">Desired Effect</h4>
-						<textarea
-							name=""
-							id=""
-							cols="30"
-							rows="10"
-							placeholder="Enter your prompt"
-							class=""
-						></textarea>
+						<div class="textarea_warp">
+							<textarea
+								name=""
+								id=""
+								cols="30"
+								rows="10"
+								placeholder="Enter your prompt"
+								required
+							></textarea>
+							<div class="textarea_tool">
+								<div class="textarea_tool_item random_txt">🎲</div>
+								<div class="textarea_tool_item clear_txt"></div>
+							</div>
+						</div>
 					</div>
 					<div class="option_item itme_intensity">
 						<p class="itme_intensity_desc">Change Intensity</p>
@@ -160,7 +169,10 @@
 						</div>
 					</div>
 					<div class="option_item option_quantity">
-						<h4 class="option_title"><span>Quantity</span><router-link to="/buy" class="to_upgrade">Upgrade to unlock</router-link></h4>
+						<h4 class="option_title"><span>Quantity</span><router-link
+								to="/buy"
+								class="to_upgrade"
+							>Upgrade to unlock</router-link></h4>
 						<div class="list">
 							<span class="quantity_level active">1</span>
 							<span class="quantity_level disabled">2</span>
@@ -296,7 +308,7 @@ export default {
 		},
 	},
 	watch: {
-		['$route.params.type'](newValue, oldValue) {
+		[ '$route.params.type' ] (newValue, oldValue) {
 			this.leftCurrTab = newValue
 		}
 	},
@@ -352,13 +364,13 @@ export default {
 
 				.option_item {
 					margin: 20px 0 0 0;
-					
+
 					.option_title {
 						font-size: 16px;
 						font-weight: 500;
 						margin: 0 0 10px 0;
 						position: relative;
-	
+
 						.to_upgrade {
 							color: $pink;
 							font-size: 14px;
@@ -369,7 +381,7 @@ export default {
 							display: flex;
 							align-items: center;
 							text-decoration: none;
-	
+
 							&::after {
 								content: '';
 								margin-left: 5px;
@@ -394,15 +406,113 @@ export default {
 						color: $white;
 						font-size: 16px;
 						padding: 10px;
-						border: none;
+						// border: none;
 						resize: none;
 						background: none;
 						border: 1px solid $gray_02;
 						border-radius: 9px;
 
+						&:focus {
+							border: 1px solid $pink;
+							outline: none;
+						}
+
 						&::placeholder {
 							color: $gray_02;
 						}
+					}
+
+					&:has(.textarea_warp) {
+						.textarea_warp {
+							textarea {
+								width: 100%;
+								color: $white;
+								font-size: 16px;
+								// padding: 10px;
+								padding: 10px 10px 30px 10px;
+								border: none;
+								resize: none;
+								background: none;
+								border: none;
+								border-radius: 9px;
+								// background-color: red;
+
+								&:focus {
+									outline: none;
+								}
+
+								&::placeholder {
+									color: $gray_02;
+								}
+							}
+						}
+					}
+
+					.textarea_warp {
+						position: relative;
+						width: 100%;
+						height: 147px;
+						border: 1px solid $gray_02;
+						border-radius: 9px;
+
+						.textarea_tool {
+							position: absolute;
+							right: 0;
+							bottom: 10px;
+							display: flex;
+							justify-content: flex-end;
+							align-items: center;
+
+							.textarea_tool_item {
+								cursor: pointer;
+								margin: 0 0 0 10px;
+							}
+
+							.random_txt {
+								font-size: 18px;
+								transform-origin: center;
+								transition: all 1s ease-in-out;
+
+								&:hover {
+									animation: rotate 1s linear;
+								}
+								@keyframes rotate {
+									0% {
+										transform: rotate(0deg);
+									}
+									100% {
+										transform: rotate(360deg);
+									}
+								}
+							}
+
+							.clear_txt {
+								width: 18px;
+								height: 18px;
+								background: url('~@/assets/svg/icon_delete.svg') no-repeat center center;
+								background-size: contain;
+								margin-right: 10px;
+
+								&:hover {
+									animation: jitter 0.5s linear;
+								}
+								@keyframes jitter {
+									0%,50% {
+										transform: rotate(30deg);
+									}
+									30%,70% {
+										transform: rotate(-30deg);
+									}
+									100% {
+										transform: rotate(0deg);
+									}
+								}
+							}
+						}
+					}
+
+					.textarea_warp:has(textarea:focus) {
+						border: 1px solid $pink;
 					}
 				}
 				.option_addimg {
