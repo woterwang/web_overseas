@@ -2,19 +2,19 @@
  * @Author: hqwx.com
  * @Date: 2024-07-04 21:34:03
  * @LastEditors: WRG(woter_wang@live.com)
- * @LastEditTime: 2024-07-06 14:30:39
+ * @LastEditTime: 2024-07-06 23:20:18
  * @😍: 😃😃
 -->
 <template>
 	<nav class="page_nav">
-		<div class="log_txt">FantasyLabs</div>
-		<div class="nav_item link_item link_create" @click="gotoTextCreate">Create</div>
-		<div class="nav_item link_item link_repair" @click="gotoRepairCreate">Repair</div>
-		<div class="nav_item member_item member_level">Pro</div>
-		<div class="nav_item member_item member_normal">Upgrade</div>
+		<router-link to="/home" class="nav_item log_txt">FantasyLabs</router-link>
+		<router-link to="/create/0" class="nav_item link_item link_create">Create</router-link>
+		<router-link to="/create/1" class="nav_item link_item link_repair">Repair</router-link>
+		<router-link to="/buy" class="nav_item member_item member_level">Pro</router-link>
+		<router-link to="/buy" class="nav_item member_item member_normal">Upgrade</router-link>
 		<div class="nav_item member_item member_xp">888</div>
 		<div class="nav_item user_head"></div>
-		<div class="nav_item login_btn" @click="gotoLogin">Login</div>
+		<router-link to="/login" class="nav_item login_btn" @click="gotoLogin">Login</router-link>
 	</nav>
 </template>
 <script>
@@ -27,15 +27,7 @@ export default {
 		}
 	},
 	methods: {
-		gotoLogin() {
-			this.$router.push({ path: '/login' })
-		},
-		gotoTextCreate() {
-			this.$router.push({ path: '/create/0' })
-		},
-		gotoRepairCreate() {
-			this.$router.push({ path: '/create/1' })
-		},
+		
 	},
 }
 </script>
@@ -58,6 +50,7 @@ export default {
 			display: flex;
 			align-items: center;
 			color: $white;
+			text-decoration: none;
 			cursor: pointer;
 
 			&.link_item {

@@ -2,7 +2,7 @@
  * @Author: hqwx.com
  * @Date: 2024-07-06 16:17:14
  * @LastEditors: WRG(woter_wang@live.com)
- * @LastEditTime: 2024-07-06 23:06:01
+ * @LastEditTime: 2024-07-06 23:19:23
  * @😍: 😃😃
 -->
 <template>
@@ -51,7 +51,7 @@
 						</label>
 					</div>
 					<div class="option_item option_quantity">
-						<h4 class="option_title"><span>Quantity</span><span class="to_upgrade">Upgrade to unlock</span></h4>
+						<h4 class="option_title"><span>Quantity</span><router-link to="/buy" class="to_upgrade">Upgrade to unlock</router-link></h4>
 						<div class="list">
 							<span class="quantity_level active">1</span>
 							<span class="quantity_level disabled">2</span>
@@ -160,7 +160,7 @@
 						</div>
 					</div>
 					<div class="option_item option_quantity">
-						<h4 class="option_title"><span>Quantity</span><span class="to_upgrade">Upgrade to unlock</span></h4>
+						<h4 class="option_title"><span>Quantity</span><router-link to="/buy" class="to_upgrade">Upgrade to unlock</router-link></h4>
 						<div class="list">
 							<span class="quantity_level active">1</span>
 							<span class="quantity_level disabled">2</span>
@@ -368,6 +368,7 @@ export default {
 							cursor: pointer;
 							display: flex;
 							align-items: center;
+							text-decoration: none;
 	
 							&::after {
 								content: '';

@@ -2,7 +2,7 @@
  * @Author: hqwx.com
  * @Date: 2024-07-05 14:40:34
  * @LastEditors: WRG(woter_wang@live.com)
- * @LastEditTime: 2024-07-06 16:21:43
+ * @LastEditTime: 2024-07-06 23:14:25
  * @😍: 😃😃
  */
 import vueRouter from "vue-router";
@@ -42,5 +42,8 @@ const router = new vueRouter({
   // mode: 'history',
   mode: 'hash',
   routes,
+  scrollBehavior(to, from, savedPosition) {
+    return { x: 0, y: 0 };
+  },
 });
 export default router;

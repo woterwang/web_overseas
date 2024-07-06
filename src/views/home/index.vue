@@ -2,7 +2,7 @@
  * @Author: hqwx.com
  * @Date: 2024-07-05 12:03:07
  * @LastEditors: WRG(woter_wang@live.com)
- * @LastEditTime: 2024-07-05 18:16:02
+ * @LastEditTime: 2024-07-06 23:13:42
  * @😍: 😃😃
 -->
 <template>
@@ -12,10 +12,11 @@
 			<div class="left">
 				<h1>Explore Unlimited And Realistic AI Art</h1>
 				<p>Bring your deepest fantasies to life, including reality, anime, 3D, and more. Join now to start your creation.</p>
-				<a
+				<router-link
+					to="/create/0"
 					href="javascript:void(0)"
 					class="create_btn"
-				>Start Creating</a>
+				>Start Creating</router-link>
 			</div>
 			<div class="right">
 				<video
@@ -43,11 +44,11 @@
 			</div>
 		</div>
 		<!-- bottom btn -->
-		<a
-			href="javascript:void(0)"
+		<router-link
+			to="/create/0"
 			class="create_btn buttom_btn"
 			:class="{'fixed_btn':createBtnState}"
-		>Start Creating</a>
+		>Start Creating</router-link>
 	</div>
 </template>
 
