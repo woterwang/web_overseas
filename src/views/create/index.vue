@@ -2,7 +2,7 @@
  * @Author: hqwx.com
  * @Date: 2024-07-06 16:17:14
  * @LastEditors: WRG(woter_wang@live.com)
- * @LastEditTime: 2024-07-07 01:39:02
+ * @LastEditTime: 2024-07-07 01:44:32
  * @😍: 😃😃
 -->
 <template>
@@ -138,7 +138,6 @@
 								cols="30"
 								rows="10"
 								placeholder="Enter your prompt"
-								required
 							></textarea>
 							<div class="textarea_tool">
 								<div class="textarea_tool_item random_txt">🎲</div>
@@ -389,7 +388,7 @@ export default {
 							display: flex;
 							align-items: center;
 							text-decoration: none;
-							background: url('~@/assets/svg/icon_goto_upgrade.svg') no-repeat 0 0 ;
+							background: url('~@/assets/svg/icon_goto_upgrade.svg') no-repeat 0 0;
 							background-size: contain;
 
 							// &::after {
@@ -532,7 +531,7 @@ export default {
 					justify-content: space-between;
 					align-items: center;
 					.addimg_btn_wraper {
-						width: 100%;
+						width: fit-content;
 						height: 50px;
 						color: $white;
 						font-size: 16px;
