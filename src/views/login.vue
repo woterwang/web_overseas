@@ -72,7 +72,7 @@ export default {
 				width: 237px;
 				height: 100%;
 				padding: 30px 20px;
-				background: $white url('~@/assets/images/login_pop_bg.jpg') no-repeat 0 center;
+				background: $white url('~@/assets/images/login_pop_bg.jpg') no-repeat 27% center;
 				background-size: cover;
 				.left_title {
 					color: $white;
