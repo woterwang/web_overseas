@@ -60,7 +60,7 @@ export default {
 		.login_title {
 			color: $white;
 			font-size: 30px;
-			margin: 0 0 40px 0;
+			margin: 0 0 30px 0;
 		}
 		.login_box {
 			display: flex;
