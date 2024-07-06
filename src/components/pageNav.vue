@@ -2,19 +2,40 @@
  * @Author: hqwx.com
  * @Date: 2024-07-04 21:34:03
  * @LastEditors: WRG(woter_wang@live.com)
- * @LastEditTime: 2024-07-06 23:20:18
+ * @LastEditTime: 2024-07-06 23:43:26
  * @😍: 😃😃
 -->
 <template>
 	<nav class="page_nav">
-		<router-link to="/home" class="nav_item log_txt">FantasyLabs</router-link>
-		<router-link to="/create/0" class="nav_item link_item link_create">Create</router-link>
-		<router-link to="/create/1" class="nav_item link_item link_repair">Repair</router-link>
-		<router-link to="/buy" class="nav_item member_item member_level">Pro</router-link>
-		<router-link to="/buy" class="nav_item member_item member_normal">Upgrade</router-link>
-		<div class="nav_item member_item member_xp">888</div>
+		<router-link
+			to="/home"
+			class="nav_item log_txt"
+		>FantasyLabs</router-link>
+		<router-link
+			to="/create/0"
+			class="nav_item link_item link_create"
+		>Create</router-link>
+		<router-link
+			to="/create/1"
+			class="nav_item link_item link_repair"
+		>Repair</router-link>
+		<router-link
+			to="/buy/0"
+			class="nav_item member_item member_level"
+		>Pro</router-link>
+		<router-link
+			:to="upgradeUrl"
+			class="nav_item member_item member_normal"
+		>Upgrade</router-link>
+		<router-link
+			:to="creditUrl"
+			class="nav_item member_item member_xp"
+		>888</router-link>
 		<div class="nav_item user_head"></div>
-		<router-link to="/login" class="nav_item login_btn" @click="gotoLogin">Login</router-link>
+		<router-link
+			to="/login"
+			class="nav_item login_btn"
+		>Login</router-link>
 	</nav>
 </template>
 <script>
@@ -23,11 +44,17 @@ export default {
 	functional: false,
 	data () {
 		return {
-			status: 90,
+			// 1、如果用户已有会员等级，则点击顶栏的积分icon时，会直接切到积分页；
+			// 2、如用户未有等级，则点击顶栏的升级或积分icon，都是跳转升级页，主动点击升级页下方的“credit”的tab才会切换到积分页；
+			creditUrl: this.userLevel ? '/buy/1' : '/buy/0',
+			//用户购买某个等级后，其他两个等级都会消失，只剩当前等级居中显示；且上方不显示级别和价格信息
+			upgradeUrl: this.userLevel ? '/buy/3' : '/buy/0',
 		}
 	},
 	methods: {
-		
+		//用户是否有会员等级
+		userLevel: () => Math.random() > 0.5 ? true : false,
+
 	},
 }
 </script>
@@ -40,7 +67,7 @@ export default {
 		font-size: 16px;
 		background-color: $black_01;
 		padding: 0 30px;
-		.log_txt{
+		.log_txt {
 			margin: 0 auto 0 0;
 			color: $white;
 			justify-self: flex-start;
@@ -122,7 +149,7 @@ export default {
 				background: url('~@/assets/svg/icon_user.svg') no-repeat center center;
 			}
 
-			&.login_btn{
+			&.login_btn {
 				padding: 8px 30px;
 				background: $pink;
 				border: 0;

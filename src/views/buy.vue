@@ -2,7 +2,7 @@
  * @Author: hqwx.com
  * @Date: 2024-07-05 18:11:56
  * @LastEditors: WRG(woter_wang@live.com)
- * @LastEditTime: 2024-07-06 14:24:02
+ * @LastEditTime: 2024-07-06 23:39:01
  * @😍: 😃😃
 -->
 <template>
@@ -10,7 +10,7 @@
 		<!-- upgrade_list - Upgrade -->
 		<section
 			class="upgrade"
-			v-show="currentTab === 0"
+			v-show="currentTab == 0"
 		>
 			<section class="top">
 				<h1>Start Your Unrestricted Creative Journey</h1>
@@ -78,7 +78,7 @@
 		<!-- Credit_list -->
 		<section
 			class="credit"
-			v-show="currentTab === 1"
+			v-show="currentTab == 1"
 		>
 			<section class="top">
 				<h1>Purchase One-time Credits</h1>
@@ -111,7 +111,7 @@
 			</section>
 		</section>
 		<!-- maine success -->
-		<section class="upgrade_list">
+		<section class="upgrade_list" v-show="currentTab == 3">
 			<div class="package_item item_plus item_maine">
 				<h4 class="title">You have successfully unlocked the following feature</h4>
 				<div class="content">
@@ -129,12 +129,12 @@
 			<div
 				class="tab_item"
 				@click="tabChange(0)"
-				:class="{active: currentTab === 0}"
+				:class="{active: currentTab == 0}"
 			>Upgrade</div>
 			<div
 				class="tab_item"
 				@click="tabChange(1)"
-				:class="{active: currentTab === 1}"
+				:class="{active: currentTab == 1}"
 			>Credits</div>
 		</section>
 		<!-- Reviews From Users -->
@@ -170,7 +170,7 @@ export default {
 	name: "Buy",
 	data () {
 		return {
-			currentTab: 0,
+			currentTab: this.$route.params.type || 0,
 		}
 	},
 	methods: {
@@ -178,6 +178,11 @@ export default {
 			this.currentTab = type
 		}
 	},
+	watch: {
+		'$route' (to, from) {
+			this.currentTab = to.params.type || 0
+		}
+	}
 }
 </script>
 

@@ -19,7 +19,7 @@ const routes = [
         component: () => import("@/views/home/index.vue"),
       },
       {
-        path: "/buy",
+        path: "/buy/:type", // 动态路由 type: 0: upgrade 1: credit
         name: "buy",
         component: () => import("@/views/buy.vue"),
       },
