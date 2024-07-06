@@ -2,7 +2,7 @@
  * @Author: hqwx.com
  * @Date: 2024-07-05 18:11:56
  * @LastEditors: WRG(woter_wang@live.com)
- * @LastEditTime: 2024-07-05 21:05:12
+ * @LastEditTime: 2024-07-06 14:24:02
  * @😍: 😃😃
 -->
 <template>
@@ -109,6 +109,20 @@
 					<div class="btn">Buy Now</div>
 				</div>
 			</section>
+		</section>
+		<!-- maine success -->
+		<section class="upgrade_list">
+			<div class="package_item item_plus item_maine">
+				<h4 class="title">You have successfully unlocked the following feature</h4>
+				<div class="content">
+					<div class="item"><span class="highlight">500 credits</span> /month</div>
+					<div class="item">Basic AI Image Repair</div>
+					<div class="item">Basic AI Video Repair</div>
+					<div class="item">Basic AI Video Repair</div>
+					<div class="item">Basic AI Video Repair</div>
+				</div>
+				<div class="btn">Activated</div>
+			</div>
 		</section>
 		<!-- Tab -->
 		<section class="tab">
@@ -271,7 +285,7 @@ export default {
 					width: 60%;
 					border-radius: 20px;
 					position: absolute;
-					bottom: 30px;
+					bottom: 40px;
 					left: 50%;
 					transform: translateX(-50%);
 					display: flex;
@@ -353,7 +367,32 @@ export default {
 
 				&:hover {
 					border-color: $purple_1;
-					
+				}
+			}
+
+			.item_maine{
+				padding-top: 50px;
+				.title {
+					color: $gold;
+					text-align: center;
+					font-size: 20px;
+					padding: 0 0 30px 0;
+					border-bottom: 1px solid $gray;
+				}
+				
+				.btn {
+					background: $black_01;
+					color: $green;
+					cursor: default;
+
+					&::before {
+						content: '';
+						width: 22px;
+						height: 22px;
+						margin: 0 10px 0 0;
+						background: url('~@/assets/svg/icon_success.svg') no-repeat center center;
+						background-size: contain;
+					}
 				}
 			}
 		}
@@ -370,7 +409,6 @@ export default {
 						background: url('~@/assets/svg/icon_king.svg') no-repeat center center;
 						background-size: contain;
 						margin: 0 10px 0 0;
-						
 					}
 				}
 			}
