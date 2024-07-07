@@ -2,7 +2,7 @@
  * @Author: hqwx.com
  * @Date: 2024-07-07 12:11:45
  * @LastEditors: WRG(woter_wang@live.com)
- * @LastEditTime: 2024-07-07 19:06:17
+ * @LastEditTime: 2024-07-07 20:12:44
  * @😍: 😃😃
  */
 /**
@@ -179,6 +179,7 @@ class EditImg {
 		ctx.moveTo(x, y)
 		ctx.lineTo(x, y)
 		ctx.stroke()
+		ctx.closePath()
 	}
 
 	//橡皮擦 擦除路径 而不是绘制路径

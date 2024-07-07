@@ -2,7 +2,7 @@
  * @Author: hqwx.com
  * @Date: 2024-07-06 16:17:14
  * @LastEditors: WRG(woter_wang@live.com)
- * @LastEditTime: 2024-07-07 19:32:19
+ * @LastEditTime: 2024-07-07 20:41:14
  * @😍: 😃😃
 -->
 <template>
@@ -48,7 +48,8 @@
 								class="addimg_btn"
 								type="file"
 								accept=".png,.jpg,.jpeg"
-								@change="uploadTextToImg"
+								v-if="addimg_btn_text_to_img"
+								@input="uploadTextToImg"
 							/>
 							<span class="add_img_icon"></span>
 						</label>
@@ -143,14 +144,15 @@
 						<label
 							for="addimg_btn_repair"
 							class="addimg_btn_wraper"
-						>
+							>
 							<div class="drop_img">
 								<input
-									id="addimg_btn_repair"
-									class="addimg_btn"
-									type="file"
+								id="addimg_btn_repair"
+								class="addimg_btn"
+								type="file"
 									accept=".png,.jpg,.jpeg"
-									@change="uploadRepairImg"
+									@input="uploadRepairImg"
+									v-if="addimg_btn_repair"
 								/>
 								<span class="add_icon"></span>
 								<p class="add_img_desc">Add the image you want to repair, in png/jpg format</p>
@@ -184,7 +186,7 @@
 								max="100"
 								:value="currIntensity"
 								class="slider_range"
-								@change="changeIntensity"
+								@input="changeIntensity"
 							> -->
 							<vue-slider
 								v-model="currIntensity"
@@ -255,7 +257,11 @@
 			</div>
 		</section>
 		<!-- 编辑图片 -->
-		<EditImg ref='editImg' />
+		<EditImg
+			ref='editImg'
+			@editedImgCancel="editedImgCancel"
+			@exportEditedImg="exportEditedImg"
+		/>
 	</section>
 </template>
 
@@ -272,6 +278,8 @@ export default {
 	},
 	data () {
 		return {
+			addimg_btn_text_to_img: true,
+			addimg_btn_repair: true,
 			//当前选项卡-左侧 - 0: Text to Image, 1: Image Repair
 			leftCurrTab: this.$route.params.type || 0,
 			//当前选项卡-右侧 - 0: Editor's Choice, 1: My Output
@@ -346,6 +354,7 @@ export default {
 			console.log(e.target.value)
 		},
 		uploadRepairImg (e) {
+			console.log('🚀 ~ file: index.vue:356 ~ uploadRepairImg ~ e:', e);
 			const abledType = [ 'image/png', 'image/jpg', 'image/jpeg' ];
 			const fileMaxSize = 1024 * 1024 * 3;
 			const file = e.target.files[ 0 ]
@@ -379,7 +388,22 @@ export default {
 		removeTextToImgFile () {
 			if (!this.textToImgFile) return
 			this.textToImgFile = null
-		}
+			this.addimg_btn_text_to_img = false;
+			setTimeout(() => {
+				this.addimg_btn_text_to_img = true;
+			}, 10);
+		},
+		editedImgCancel () {
+			this.addimg_btn_repair = false;
+			setTimeout(() => {
+				this.addimg_btn_repair = true;
+			}, 10);
+
+		},
+		exportEditedImg (data) {
+			this.editedImgCancel()
+			const { editedBase64, originBase64 } = data
+		},
 	},
 	watch: {
 		[ '$route.params.type' ] (newValue, oldValue) {
@@ -609,7 +633,7 @@ export default {
 							cursor: pointer;
 						}
 					}
-					.add_img_thumb{
+					.add_img_thumb {
 						width: 100px;
 						height: 100px;
 						border-radius: 9px;

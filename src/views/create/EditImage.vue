@@ -2,7 +2,7 @@
  * @Author: hqwx.com
  * @Date: 2024-07-07 11:19:33
  * @LastEditors: WRG(woter_wang@live.com)
- * @LastEditTime: 2024-07-07 19:08:21
+ * @LastEditTime: 2024-07-07 20:40:05
  * @😍: 😃😃
 -->
 <template>
@@ -12,7 +12,7 @@
 	>
 		<div
 			class="edit_pop_mask"
-			@click="visible = false"
+			@click="close"
 		></div>
 		<div class="edit_pop_content">
 			<span
@@ -116,6 +116,7 @@ export default {
 		},
 		close () {
 			this.visible = false;
+			this.$emit('editedImgCancel')
 		},
 		open (file) {
 			this.visible = true;
