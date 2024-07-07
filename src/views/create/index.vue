@@ -2,7 +2,7 @@
  * @Author: hqwx.com
  * @Date: 2024-07-06 16:17:14
  * @LastEditors: WRG(woter_wang@live.com)
- * @LastEditTime: 2024-07-07 19:14:17
+ * @LastEditTime: 2024-07-07 19:32:19
  * @😍: 😃😃
 -->
 <template>
@@ -37,21 +37,34 @@
 						></textarea>
 					</div>
 					<div class="option_addimg">
+						<!-- 选择图片按钮 -->
 						<label
 							for="addimg_btn"
 							class="addimg_btn_wraper"
+							v-if="!textToImgFile"
 						>
 							<input
 								id="addimg_btn"
 								class="addimg_btn"
 								type="file"
 								accept=".png,.jpg,.jpeg"
+								@change="uploadTextToImg"
 							/>
-							<span
-								class="add_img_des"
-								@click="removeTextToImgFile"
-							>Add reference image</span>
+							<span class="add_img_icon"></span>
 						</label>
+						<!-- 图片缩略图 -->
+						<img
+							v-if="textToImgFile"
+							:src="textToImgFileUrl"
+							alt=""
+							class="add_img_thumb"
+						/>
+						<!-- 图片描述 -->
+						<span
+							class="add_img_des"
+							:class="{active: textToImgFile}"
+							@click="removeTextToImgFile"
+						>{{textToImgFile ? 'Remove reference image' : 'Add reference image'}}</span>
 					</div>
 					<div class="option_item option_quantity">
 						<h4 class="option_title">
@@ -317,6 +330,9 @@ export default {
 					text: 'Style 10',
 				},
 			],
+			//
+			textToImgFile: null,
+			textToImgFileUrl: '',
 		}
 	},
 	methods: {
@@ -357,7 +373,12 @@ export default {
 				alert('Only png/jpg/jpeg format images are supported')
 				return
 			}
-			this.$refs.editImg.open(file)
+			this.textToImgFile = file
+			this.textToImgFileUrl = URL.createObjectURL(file)
+		},
+		removeTextToImgFile () {
+			if (!this.textToImgFile) return
+			this.textToImgFile = null
 		}
 	},
 	watch: {
@@ -576,23 +597,23 @@ export default {
 				}
 				.option_addimg {
 					display: flex;
-					justify-content: space-between;
+					// justify-content: space-between;
 					align-items: center;
 					.add_img_des {
-						cursor: pointer;
 						color: $white;
 						font-size: 16px;
 						display: flex;
 						align-items: center;
 
-						&::before {
-							content: '';
-							margin-right: 10px;
-							width: 30px;
-							height: 30px;
-							background: url('~@/assets/svg/icon_add.svg') no-repeat center center;
-							background-size: contain;
+						&.active {
+							cursor: pointer;
 						}
+					}
+					.add_img_thumb{
+						width: 100px;
+						height: 100px;
+						border-radius: 9px;
+						margin: 0 10px 0 0;
 					}
 				}
 				.option_quantity {
@@ -751,6 +772,7 @@ export default {
 					.addimg_btn_wraper {
 						height: unset;
 						width: unset;
+						margin: 0;
 					}
 				}
 				.itme_intensity {
@@ -843,11 +865,19 @@ export default {
 		.addimg_btn_wraper {
 			width: fit-content;
 			height: 50px;
+			margin: 0 10px 0 0;
 			color: $white;
 			font-size: 16px;
 			cursor: pointer;
 			display: flex;
 			align-items: center;
+
+			.add_img_icon {
+				width: 30px;
+				height: 30px;
+				background: url('~@/assets/svg/icon_add.svg') no-repeat center center;
+				background-size: contain;
+			}
 		}
 		.addimg_btn {
 			display: none;
