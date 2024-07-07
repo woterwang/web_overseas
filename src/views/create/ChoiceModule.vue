@@ -2,7 +2,7 @@
  * @Author: hqwx.com
  * @Date: 2024-07-06 21:22:23
  * @LastEditors: WRG(woter_wang@live.com)
- * @LastEditTime: 2024-07-06 22:04:01
+ * @LastEditTime: 2024-07-07 11:49:23
  * @😍: 😃😃
 -->
 <template>
@@ -16,6 +16,7 @@
 		<div class="choice_box">
 			<ChoiceCard v-for="card in 10" :key="card" />
 		</div>
+		<EditImg />
 	</div>
 </template>
 
@@ -24,6 +25,7 @@
 		name: "ChoiceModule",
 		components: {
 			ChoiceCard: () => import('./ChoiceCard.vue'),
+			EditImg: () => import('./EditImage.vue'),
 		},
 	}
 </script>
@@ -53,4 +55,17 @@
 		flex-wrap: wrap;
 	}
 }
+::v-deep .vue-slider-rail {
+		background-color: $black_03;
+		.vue-slider-dot-tooltip-inner,
+		.vue-slider-dot-handle,
+		.vue-slider-process {
+			background-color: $pink;
+			box-shadow: unset;
+		}
+
+		.vue-slider-dot-tooltip-inner {
+			border-color: $pink;
+		}
+	}
 </style>
