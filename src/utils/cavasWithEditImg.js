@@ -2,7 +2,7 @@
  * @Author: hqwx.com
  * @Date: 2024-07-07 12:11:45
  * @LastEditors: WRG(woter_wang@live.com)
- * @LastEditTime: 2024-07-07 17:31:54
+ * @LastEditTime: 2024-07-07 19:06:17
  * @😍: 😃😃
  */
 /**
@@ -11,11 +11,11 @@
  * @class EditImg
  */
 class EditImg {
-	constructor({ el, imgFile, size = 50, brashColor = 'rgba(224, 54, 115, 0.5)', tool = 'brush' } = {}) {
+	constructor({ el, imgUrl, size = 50, brashColor = 'rgba(224, 54, 115, 0.5)', tool = 'brush' } = {}) {
 		// 容器
 		this.el = el
 		// 图片文件
-		this.imgFile = imgFile
+		this.imgUrl = imgUrl
 		//获取Dom元素尺寸
 		this.wrapW = this.el.offsetWidth
 		this.wrapH = this.el.offsetHeight
@@ -37,14 +37,9 @@ class EditImg {
 		this.init()
 	}
 
-	//设置参数
-	setOption (option) {
-
-	}
-
 	//设置笔刷大小
 	setBrushSize (size) {
-		this.brashSize = size
+		this.brashSize = size * Math.max(this.ratioX || 1, this.ratioY || 1)
 	}
 
 	//设置笔刷颜色
@@ -52,17 +47,24 @@ class EditImg {
 		this.brashColor = color
 	}
 
-	createCanvas () {
+	createCanvas (w, h) {
 		const canvas = document.createElement('canvas')
 		const ctx = canvas.getContext('2d');
 		//获取像素比
 		const pixRatio = devicePixelRatio
-		canvas.width = this.wrapW * pixRatio
-		canvas.height = this.wrapH * pixRatio
+		const ctxWidth = w * pixRatio
+		const ctxHeight = h * pixRatio
+		//设置canvas尺寸
+		canvas.width = ctxWidth
+		canvas.height = ctxHeight
 		canvas.style.width = this.wrapW + 'px'
 		canvas.style.height = this.wrapH + 'px'
-		//设置canvas背景为透明
-		ctx.fillStyle = 'rgba(255,255,255,1)';
+		//设置canvas缩放到与 el  一致
+		this.ratioX = ctxWidth / this.wrapW
+		this.ratioY = ctxHeight / this.wrapH
+		//设置画笔缩放
+		// ctx.scale(this.ratioX, this.ratioY)
+		this.brashSize = this.brashSize * Math.max(this.ratioX || 1, this.ratioY || 1)
 		//插入到dom中
 		this.el.appendChild(canvas)
 		return { canvas, ctx };
@@ -70,13 +72,18 @@ class EditImg {
 
 	//初始化
 	init () {
-		const { canvas, ctx } = this.createCanvas()
-		this.canvas = canvas
-		this.ctx = ctx
-		// this.ctx.globalAlpha = 0.3
-
-		//绑定事件
-		this.bindEvent()
+		const { imgUrl, } = this
+		const img = new Image()
+		img.src = imgUrl
+		img.onload = () => {
+			const w = img.width
+			const h = img.height
+			const { canvas, ctx } = this.createCanvas(w, h)
+			this.canvas = canvas
+			this.ctx = ctx
+			//绑定事件
+			this.bindEvent()
+		}
 	}
 
 	bindEvent () {
@@ -98,7 +105,7 @@ class EditImg {
 		this.isDrawing = true
 		this.lastX = offsetX
 		this.lastY = offsetY
-		this.draw(offsetX, offsetY)
+		this.draw(offsetX * this.ratioX, offsetY * this.ratioY)
 	}
 
 	handleMouseMove (e) {
@@ -111,7 +118,7 @@ class EditImg {
 		const { offsetX, offsetY } = e
 		this.lastX = offsetX
 		this.lastY = offsetY
-		this.draw(offsetX, offsetY)
+		this.draw(offsetX * this.ratioX, offsetY * this.ratioY)
 	}
 
 	draw (x, y) {
@@ -169,7 +176,7 @@ class EditImg {
 		ctx.lineJoin = 'round'
 		ctx.strokeStyle = this.brashColor
 		ctx.beginPath()
-		ctx.moveTo(this.lastX, this.lastY)
+		ctx.moveTo(x, y)
 		ctx.lineTo(x, y)
 		ctx.stroke()
 	}
@@ -225,39 +232,81 @@ class EditImg {
  */
 function OutputWithCanvas (imgFile, outputType = 'image/png', quality = 1) {
 	console.log('🚀 ~ file: cavasWithEditImg.js:219 ~ OutputWithCanvas ~ imgFile:', imgFile);
-	//判断imgFile是否arrayBuffer
-	if (imgFile instanceof ImageData) {
-		const canvas = document.createElement('canvas')
-		canvas.width = imgFile.width
-		canvas.height = imgFile.height
-		const ctx = canvas.getContext('2d');
-		ctx.putImageData(imgFile, 0, 0)
-		return canvas.toDataURL(outputType, quality)
-	}
-	//判断imgFile是否为图片路径
-	if (typeof imgFile == 'string') {
-		const img = new Image()
-		img.src = imgFile
-		img.onload = () => {
+	return new Promise((resolve, reject) => {
+		//判断imgFile是否arrayBuffer
+		if (imgFile instanceof ImageData) {
 			const canvas = document.createElement('canvas')
+			canvas.width = imgFile.width
+			canvas.height = imgFile.height
 			const ctx = canvas.getContext('2d');
-			canvas.width = img.width
-			canvas.height = img.height
-			ctx.drawImage(img, 0, 0)
-			return canvas.toDataURL(outputType, quality)
+			ctx.putImageData(imgFile, 0, 0)
+			resolve(canvas.toDataURL(outputType, quality))
 		}
-	}
-	//判断imgFile是否为图片对象
-	if ((imgFile instanceof HTMLImageElement)) {
-		const canvas = document.createElement('canvas')
-		canvas.width = imgFile.width
-		canvas.height = imgFile.height
-		const ctx = canvas.getContext('2d');
-		ctx.drawImage(imgFile, 0, 0)
-		return canvas.toDataURL(outputType, quality)
-	}
+		//判断imgFile是否为图片路径
+		if (typeof imgFile == 'string') {
+			const img = new Image()
+			img.src = imgFile
+			img.onload = () => {
+				const canvas = document.createElement('canvas')
+				const ctx = canvas.getContext('2d');
+				canvas.width = img.width
+				canvas.height = img.height
+				ctx.drawImage(img, 0, 0)
+				resolve(canvas.toDataURL(outputType, quality))
+			}
+		}
+		//判断imgFile是否为图片对象
+		if ((imgFile instanceof HTMLImageElement)) {
+			const canvas = document.createElement('canvas')
+			canvas.width = imgFile.width
+			canvas.height = imgFile.height
+			const ctx = canvas.getContext('2d');
+			ctx.drawImage(imgFile, 0, 0)
+			resolve(canvas.toDataURL(outputType, quality))
+		}
 
-	return null
+		//判断imgFile是否为Blob对象
+		if (imgFile instanceof Blob) {
+			const reader = new FileReader()
+			reader.readAsDataURL(imgFile)
+			reader.onload = (e) => {
+				const img = new Image()
+				img.src = e.target.result
+				img.onload = () => {
+					const canvas = document.createElement('canvas')
+					const ctx = canvas.getContext('2d');
+					canvas.width = img.width
+					canvas.height = img.height
+					ctx.drawImage(img, 0, 0)
+					resolve(canvas.toDataURL(outputType, quality))
+				}
+			}
+		}
+
+		//如果是文件对象
+		if (imgFile instanceof File) {
+			const reader = new FileReader()
+			reader.readAsDataURL(imgFile)
+			reader.onload = (e) => {
+				const img = new Image()
+				img.src = e.target.result
+				console.log('🚀 ~ file: cavasWithEditImg.js:293 ~ returnnewPromise ~ img.src:', img.src);
+				img.onload = () => {
+					const canvas = document.createElement('canvas')
+					console.log('🚀 ~ file: cavasWithEditImg.js:296 ~ returnnewPromise ~ canvas:', canvas);
+					const ctx = canvas.getContext('2d');
+					canvas.width = img.width
+					canvas.height = img.height
+					ctx.drawImage(img, 0, 0)
+					const data = canvas.toDataURL(outputType, quality)
+					console.log('🚀 ~ file: cavasWithEditImg.js:302 ~ returnnewPromise ~ data:', data);
+					resolve(data)
+				}
+			}
+		}
+		//其他情况
+		// resolve(null)
+	})
 }
 export {
 	EditImg,

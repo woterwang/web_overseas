@@ -2,7 +2,7 @@
  * @Author: hqwx.com
  * @Date: 2024-07-07 11:19:33
  * @LastEditors: WRG(woter_wang@live.com)
- * @LastEditTime: 2024-07-07 17:16:53
+ * @LastEditTime: 2024-07-07 19:08:21
  * @😍: 😃😃
 -->
 <template>
@@ -26,6 +26,7 @@
 						<img
 							:src="imgUrl"
 							alt=""
+							ref="originImg"
 						/>
 					</div>
 					<div
@@ -66,7 +67,10 @@
 							@change="changeSize"
 						></vue-slider>
 					</div>
-					<span class="confirm_btn" @click="exportImg">Confirm</span>
+					<span
+						class="confirm_btn"
+						@click="exportEditedImg"
+					>Confirm</span>
 				</div>
 			</div>
 		</div>
@@ -85,7 +89,7 @@ export default {
 	data () {
 		return {
 			//是否显示弹窗
-			visible: true,
+			visible: false,
 			//图片
 			currSize: 50,
 			//ChoiceCard.vue
@@ -95,17 +99,16 @@ export default {
 		}
 	},
 	mounted () {
-		this.initCanvas();
-		// const img = new Image();
-		// img.src = this.imgUrl;
-		// img.onload = () => {
-		// 	// this.canvas.drawImage(img);
-		// 	console.log('EditImage mounted',OutputWithCanvas(img));
-		// };
+		// this.initCanvas();
 	},
 	methods: {
 		initCanvas () {
+			if (!this.visible) return;
+			if (this.canvas) {
+				this.canvas = null;
+			}
 			this.canvas = new EditImg({
+				imgUrl: this.imgUrl,
 				el: this.$refs.canvas,
 				tool: this.curTool,
 				size: this.currSize,
@@ -114,8 +117,13 @@ export default {
 		close () {
 			this.visible = false;
 		},
-		open () {
+		open (file) {
 			this.visible = true;
+			this.imgFile = file;
+			this.imgUrl = URL.createObjectURL(file);
+			this.$nextTick(() => {
+				this.initCanvas();
+			});
 		},
 		changeTool (tool) {
 			this.curTool = tool;
@@ -128,10 +136,21 @@ export default {
 		clearCanvas () {
 			this.canvas.clear();
 		},
-		exportImg () {
-			const base64 = this.canvas.exportImg();
-			console.log('🚀 ~ file: EditImage.vue:133 ~ exportImg ~ base64:', base64);
+		async exportEditedImg () {
+			const editedBase64 = await this.canvas.exportImg();
+			const originBase64 = await OutputWithCanvas(this.imgFile, 'image/png', 1);
+			this.$emit('exportEditedImg', {
+				editedBase64,
+				originBase64,
+			});
+			this.visible = false;
 		},
+	},
+	beforeDestroy () {
+		this.visible = false;
+		if (this.canvas) {
+			this.canvas = null;
+		}
 	},
 }
 </script>

@@ -2,7 +2,7 @@
  * @Author: hqwx.com
  * @Date: 2024-07-06 16:17:14
  * @LastEditors: WRG(woter_wang@live.com)
- * @LastEditTime: 2024-07-07 01:44:32
+ * @LastEditTime: 2024-07-07 19:14:17
  * @😍: 😃😃
 -->
 <template>
@@ -47,7 +47,10 @@
 								type="file"
 								accept=".png,.jpg,.jpeg"
 							/>
-							<span class="add_img_des">Add reference image</span>
+							<span
+								class="add_img_des"
+								@click="removeTextToImgFile"
+							>Add reference image</span>
 						</label>
 					</div>
 					<div class="option_item option_quantity">
@@ -124,10 +127,22 @@
 				>
 					<div class="option_item option_drop_img">
 						<h4 class="option_title">Image</h4>
-						<div class="drop_img">
-							<span class="add_icon"></span>
-							<p class="add_img_desc">Add the image you want to repair, in png/jpg format</p>
-						</div>
+						<label
+							for="addimg_btn_repair"
+							class="addimg_btn_wraper"
+						>
+							<div class="drop_img">
+								<input
+									id="addimg_btn_repair"
+									class="addimg_btn"
+									type="file"
+									accept=".png,.jpg,.jpeg"
+									@change="uploadRepairImg"
+								/>
+								<span class="add_icon"></span>
+								<p class="add_img_desc">Add the image you want to repair, in png/jpg format</p>
+							</div>
+						</label>
 					</div>
 					<div class="option_item option_text">
 						<h4 class="option_title">Desired Effect</h4>
@@ -226,6 +241,8 @@
 				<OutputCard v-show="rightCurrTab == 1" />
 			</div>
 		</section>
+		<!-- 编辑图片 -->
+		<EditImg ref='editImg' />
 	</section>
 </template>
 
@@ -238,6 +255,7 @@ export default {
 		VueSlider,
 		ChoiceCard: () => import('./ChoiceModule.vue'),
 		OutputCard: () => import('./OutputModule.vue'),
+		EditImg: () => import('./EditImage.vue'),
 	},
 	data () {
 		return {
@@ -311,6 +329,36 @@ export default {
 		changeIntensity (e) {
 			console.log(e.target.value)
 		},
+		uploadRepairImg (e) {
+			const abledType = [ 'image/png', 'image/jpg', 'image/jpeg' ];
+			const fileMaxSize = 1024 * 1024 * 3;
+			const file = e.target.files[ 0 ]
+			if (!file) return
+			if (file.size > fileMaxSize) {
+				alert('The image size cannot exceed 3MB')
+				return
+			}
+			if (!abledType.includes(file.type)) {
+				alert('Only png/jpg/jpeg format images are supported')
+				return
+			}
+			this.$refs.editImg.open(file)
+		},
+		uploadTextToImg (e) {
+			const abledType = [ 'image/png', 'image/jpg', 'image/jpeg' ];
+			const fileMaxSize = 1024 * 1024 * 3;
+			const file = e.target.files[ 0 ]
+			if (!file) return
+			if (file.size > fileMaxSize) {
+				alert('The image size cannot exceed 3MB')
+				return
+			}
+			if (!abledType.includes(file.type)) {
+				alert('Only png/jpg/jpeg format images are supported')
+				return
+			}
+			this.$refs.editImg.open(file)
+		}
 	},
 	watch: {
 		[ '$route.params.type' ] (newValue, oldValue) {
@@ -530,18 +578,6 @@ export default {
 					display: flex;
 					justify-content: space-between;
 					align-items: center;
-					.addimg_btn_wraper {
-						width: fit-content;
-						height: 50px;
-						color: $white;
-						font-size: 16px;
-						cursor: pointer;
-						display: flex;
-						align-items: center;
-					}
-					.addimg_btn {
-						display: none;
-					}
 					.add_img_des {
 						cursor: pointer;
 						color: $white;
@@ -712,6 +748,10 @@ export default {
 							text-align: center;
 						}
 					}
+					.addimg_btn_wraper {
+						height: unset;
+						width: unset;
+					}
 				}
 				.itme_intensity {
 					padding: 30px 20px;
@@ -798,6 +838,19 @@ export default {
 					}
 				}
 			}
+		}
+
+		.addimg_btn_wraper {
+			width: fit-content;
+			height: 50px;
+			color: $white;
+			font-size: 16px;
+			cursor: pointer;
+			display: flex;
+			align-items: center;
+		}
+		.addimg_btn {
+			display: none;
 		}
 	}
 	// 滑块样式
