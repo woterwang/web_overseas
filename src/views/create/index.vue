@@ -2,7 +2,7 @@
  * @Author: hqwx.com
  * @Date: 2024-07-06 16:17:14
  * @LastEditors: WRG(woter_wang@live.com)
- * @LastEditTime: 2024-07-07 20:41:14
+ * @LastEditTime: 2024-07-07 20:44:19
  * @😍: 😃😃
 -->
 <template>
@@ -144,12 +144,12 @@
 						<label
 							for="addimg_btn_repair"
 							class="addimg_btn_wraper"
-							>
+						>
 							<div class="drop_img">
 								<input
-								id="addimg_btn_repair"
-								class="addimg_btn"
-								type="file"
+									id="addimg_btn_repair"
+									class="addimg_btn"
+									type="file"
 									accept=".png,.jpg,.jpeg"
 									@input="uploadRepairImg"
 									v-if="addimg_btn_repair"
@@ -403,6 +403,7 @@ export default {
 		exportEditedImg (data) {
 			this.editedImgCancel()
 			const { editedBase64, originBase64 } = data
+			console.log('🚀 ~ file: index.vue:406 ~ exportEditedImg ~ editedBase64:', editedBase64, originBase64);
 		},
 	},
 	watch: {

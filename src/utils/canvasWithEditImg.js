@@ -232,7 +232,6 @@ class EditImg {
  * @return {*} 
  */
 function OutputWithCanvas (imgFile, outputType = 'image/png', quality = 1) {
-	console.log('🚀 ~ file: cavasWithEditImg.js:219 ~ OutputWithCanvas ~ imgFile:', imgFile);
 	return new Promise((resolve, reject) => {
 		//判断imgFile是否arrayBuffer
 		if (imgFile instanceof ImageData) {
@@ -291,16 +290,13 @@ function OutputWithCanvas (imgFile, outputType = 'image/png', quality = 1) {
 			reader.onload = (e) => {
 				const img = new Image()
 				img.src = e.target.result
-				console.log('🚀 ~ file: cavasWithEditImg.js:293 ~ returnnewPromise ~ img.src:', img.src);
 				img.onload = () => {
 					const canvas = document.createElement('canvas')
-					console.log('🚀 ~ file: cavasWithEditImg.js:296 ~ returnnewPromise ~ canvas:', canvas);
 					const ctx = canvas.getContext('2d');
 					canvas.width = img.width
 					canvas.height = img.height
 					ctx.drawImage(img, 0, 0)
 					const data = canvas.toDataURL(outputType, quality)
-					console.log('🚀 ~ file: cavasWithEditImg.js:302 ~ returnnewPromise ~ data:', data);
 					resolve(data)
 				}
 			}

@@ -2,7 +2,7 @@
  * @Author: hqwx.com
  * @Date: 2024-07-07 11:19:33
  * @LastEditors: WRG(woter_wang@live.com)
- * @LastEditTime: 2024-07-07 20:40:05
+ * @LastEditTime: 2024-07-07 20:46:52
  * @😍: 😃😃
 -->
 <template>
@@ -80,7 +80,7 @@
 <script>
 import VueSlider from 'vue-slider-component'
 import 'vue-slider-component/theme/default.css'
-import { EditImg, OutputWithCanvas } from '@/utils/cavasWithEditImg.js'
+import { EditImg, OutputWithCanvas } from '@/utils/canvasWithEditImg.js'
 export default {
 	name: 'EditImage',
 	components: {
