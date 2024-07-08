@@ -2,7 +2,7 @@
  * @Author: hqwx.com
  * @Date: 2024-07-04 21:34:03
  * @LastEditors: WRG(woter_wang@live.com)
- * @LastEditTime: 2024-07-07 01:12:49
+ * @LastEditTime: 2024-07-08 16:50:29
  * @😍: 😃😃
 -->
 <template>
@@ -20,7 +20,7 @@
 			class="nav_item link_item link_repair"
 		>Repair</router-link>
 		<router-link
-			to="/buy/0"
+			to="/buy/3"
 			class="nav_item member_item member_level"
 		>Pro</router-link>
 		<router-link

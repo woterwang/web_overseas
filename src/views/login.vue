@@ -22,8 +22,24 @@
 						type="text"
 						class="email_address"
 						placeholder="Enter email address"
+						v-model="email"
 					>
-					<div class="login_btn">Login with Email</div>
+					<div
+						class="login_btn"
+						:class="{disabled:!ableLoginWithEmail}"
+						@click="loginWithEmail"
+					>
+						<span>Login with Email</span>
+						<span
+							class="countdown_str"
+							v-if="countdownTime"
+						>{{countdownTime}}s</span>
+					</div>
+					<p
+						class="error_tips"
+						:class="errorTipsInfo.type"
+						v-if="errorTipsInfo.show"
+					>{{errorTipsInfo.content}}</p>
 				</div>
 				<p class="login_tips"><a
 						href="javascript:void 0"
@@ -39,11 +55,65 @@ export default {
 	name: 'Login',
 	data () {
 		return {
-
+			email: null,
+			countdownTime: 0,
+			ableLoginWithEmail: true,
+			errorTipsInfo: {
+				show: false,
+				type: 'error',
+				content: 'Please enter a valid email address'
+			}
 		}
 	},
+	mounted () {
+		// this.countdown();
+	},
 	methods: {
-
+		checkEmail () {
+			const emailExp = /^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$/;
+			if (!this.email) {
+				this.ableLoginWithEmail = false;
+				this.showErrorTips('error', 'Please fill in a valid email address');
+				return false;
+			} else if (!emailExp.test(this.email)) {
+				this.showErrorTips('error', 'Please fill in a valid email address');
+				return false;
+			}
+			return true;
+		},
+		//60s countdown
+		countdown () {
+			let count = 60;
+			const timer = setInterval(() => {
+				count--;
+				if (count > 0) {
+					this.ableLoginWithEmail = false;
+					this.countdownTime = count;
+				} else {
+					clearInterval(timer);
+					this.ableLoginWithEmail = true;
+					this.countdownTime = 0;
+				}
+			}, 1000);
+		},
+		loginWithEmail () {
+			if (!this.ableLoginWithEmail) return;
+			if (!this.checkEmail()) return;
+			this.countdown();
+			setTimeout(() => {
+				this.showErrorTips('success', 'An email has been sent. Please check your inbox and click on the link to complete the login process (be sure to check junk/spam inbox).');
+			}, 3000);
+		},
+		showErrorTips (type = 'error', content = 'Please enter a valid email address') {
+			this.errorTipsInfo = {
+				show: true,
+				type,
+				content,
+			}
+		},
+		hideErrorTips () {
+			this.errorTipsInfo.show = false;
+		}
 	}
 }
 </script>
@@ -65,7 +135,7 @@ export default {
 		.login_box {
 			display: flex;
 			// width: 658px;
-			height: 321px;
+			// height: 321px;
 			border-radius: 6px;
 			overflow: hidden;
 			.box_left {
@@ -137,7 +207,7 @@ export default {
 							color: $white;
 							font-size: 16px;
 							border: 1px solid $gray_01;
-							border-radius: 18px;
+							border-radius: 23px;
 
 							&::placeholder {
 								color: $gray_01;
@@ -150,6 +220,7 @@ export default {
 							background: $gray_02;
 							border-radius: 18px;
 							font-size: 16px;
+							position: relative;
 
 							&::before {
 								content: '';
@@ -163,6 +234,34 @@ export default {
 							&.active,
 							&:hover {
 								background: $white;
+							}
+
+							&.disabled {
+								background: $gray_02;
+								color: $gray_01;
+								cursor: not-allowed;
+							}
+						}
+
+						.countdown_str {
+							position: absolute;
+							right: 20px;
+							top: 50%;
+							transform: translateY(-50%);
+						}
+
+						.error_tips {
+							width: inherit;
+							font-size: 16px;
+							margin: 15px 0;
+							color: $gray_01;
+
+							&.error {
+								color: $red;
+							}
+
+							&.success {
+								color: $green;
 							}
 						}
 					}

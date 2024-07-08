@@ -2,7 +2,7 @@
  * @Author: hqwx.com
  * @Date: 2024-07-05 14:40:34
  * @LastEditors: WRG(woter_wang@live.com)
- * @LastEditTime: 2024-07-06 23:21:15
+ * @LastEditTime: 2024-07-08 16:45:16
  * @😍: 😃😃
  */
 @import '_var.scss';
@@ -33,6 +33,6 @@ body {
 }
 // 滚动条滑块
 ::-webkit-scrollbar-thumb {
-    background-color: $gray;
+    background-color: rgba(0, 0, 0, 0.5);
     border-radius: 10px;
 }

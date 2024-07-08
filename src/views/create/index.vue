@@ -2,7 +2,7 @@
  * @Author: hqwx.com
  * @Date: 2024-07-06 16:17:14
  * @LastEditors: WRG(woter_wang@live.com)
- * @LastEditTime: 2024-07-07 20:44:19
+ * @LastEditTime: 2024-07-08 18:05:02
  * @😍: 😃😃
 -->
 <template>
@@ -234,8 +234,28 @@
 						</div>
 					</div>
 				</div>
-				<!-- Button -->
-				<div class="create_btn"><span>Generate</span></div>
+				<!-- 费用充值 -->
+				<router-link
+					to="/output"
+					class="goto_buy_credits_link"
+					v-if="!abletoCreate"
+				>Please obtain credits before continuing</router-link>
+				<!-- 费用提示 -->
+				<p
+					class="cost_tips"
+					v-if="abletoCreate"
+				>
+					<span class="txt">Cost</span>
+					<span class="icon"></span>
+					<span class="txt">25</span>
+				</p>
+				<!-- 生成按钮 -->
+				<div
+					class="create_btn"
+					:class="{disabled:!abletoCreate}"
+				>
+					<span>Generate</span>
+				</div>
 			</div>
 		</section>
 		<section class="right">
@@ -341,6 +361,8 @@ export default {
 			//
 			textToImgFile: null,
 			textToImgFileUrl: '',
+			//生成按钮是否可点击
+			abletoCreate: false,
 		}
 	},
 	methods: {
@@ -354,7 +376,6 @@ export default {
 			console.log(e.target.value)
 		},
 		uploadRepairImg (e) {
-			console.log('🚀 ~ file: index.vue:356 ~ uploadRepairImg ~ e:', e);
 			const abledType = [ 'image/png', 'image/jpg', 'image/jpeg' ];
 			const fileMaxSize = 1024 * 1024 * 3;
 			const file = e.target.files[ 0 ]
@@ -646,7 +667,7 @@ export default {
 						width: 52px;
 						height: 52px;
 						margin: 0 10px 0 0;
-						border: 1px solid $black_02;
+						border: 2px solid $black_02;
 						background-color: $black_02;
 						color: $white;
 						font-size: 16px;
@@ -680,11 +701,11 @@ export default {
 						justify-content: space-around;
 						align-items: center;
 						background-color: $black_02;
-						border: 1px solid $black_02;
+						border: 2px solid $black_02;
 						cursor: pointer;
 
 						&.active {
-							border: 1px solid $pink;
+							border-color: $pink;
 						}
 
 						&:last-child {
@@ -751,7 +772,7 @@ export default {
 							border-radius: 6px;
 							overflow: hidden;
 							margin: 0 0 10px 0;
-							border: 1px solid transparent;
+							border: 2px solid transparent;
 
 							img {
 								width: 100%;
@@ -765,7 +786,7 @@ export default {
 
 						&.active {
 							.style_item_img {
-								border: 1px solid $pink;
+								border-color: $pink;
 							}
 						}
 					}
@@ -822,13 +843,51 @@ export default {
 					}
 				}
 			}
+			.cost_tips {
+				width: fit-content;
+				padding: 4px 10px;
+				margin: 0 auto;
+				font-size: 14px;
+				color: $white;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				border-radius: 20px;
+				background-color: $black_02;
+
+				.icon {
+					width: 20px;
+					height: 20px;
+					background: url('~@/assets/svg/icon_medal.svg') no-repeat center center;
+					background-size: contain;
+					margin: 0 5px;
+				}
+			}
+			.goto_buy_credits_link {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				color: $gold;
+				text-decoration: none;
+				margin: 20px 0;
+				font-size: 14px;
+
+				&::after {
+					content: '';
+					width: 18px;
+					height: 18px;
+					background: url('~@/assets/svg/icon_arrow_right.svg') no-repeat 0 0;
+					margin: 3px 0 0 0;
+					background-size: contain;
+				}
+			}
 			.create_btn {
 				display: flex;
 				justify-content: center;
 				align-items: center;
 				width: 420px;
 				height: 48px;
-				margin: 20px 0 0 0;
+				margin: 20px auto 0 auto;
 				background-color: $pink;
 				color: $white;
 				font-size: 16px;
@@ -842,6 +901,12 @@ export default {
 					background: url('~@/assets/svg/icon_create.svg') no-repeat 0 0;
 					margin: 3px 0 0 0;
 					background-size: contain;
+				}
+
+				&.disabled {
+					// background-color: $pink_disabled;
+					opacity: 0.7;
+					cursor: not-allowed;
 				}
 			}
 		}
