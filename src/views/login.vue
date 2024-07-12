@@ -100,9 +100,7 @@ export default {
 			if (!this.ableLoginWithEmail) return;
 			if (!this.checkEmail()) return;
 			this.countdown();
-			setTimeout(() => {
-				this.showErrorTips('success', 'An email has been sent. Please check your inbox and click on the link to complete the login process (be sure to check junk/spam inbox).');
-			}, 3000);
+			this.showErrorTips('success', 'An email has been sent. Please check your inbox and click on the link to complete the login process (be sure to check junk/spam inbox).');
 		},
 		showErrorTips (type = 'error', content = 'Please enter a valid email address') {
 			this.errorTipsInfo = {
@@ -134,7 +132,7 @@ export default {
 		}
 		.login_box {
 			display: flex;
-			// width: 658px;
+			width: 685px;
 			// height: 321px;
 			border-radius: 6px;
 			overflow: hidden;
@@ -217,7 +215,8 @@ export default {
 						.login_btn {
 							width: 384px;
 							height: 40px;
-							background: $gray_02;
+							background: $pink;
+							color: $white;
 							border-radius: 18px;
 							font-size: 16px;
 							position: relative;
@@ -233,13 +232,14 @@ export default {
 
 							&.active,
 							&:hover {
-								background: $white;
+								// background: $white;
 							}
 
 							&.disabled {
-								background: $gray_02;
-								color: $gray_01;
+								// background: $gray_02;
+								// color: $gray_01;
 								cursor: not-allowed;
+								opacity: 0.7;
 							}
 						}
 
