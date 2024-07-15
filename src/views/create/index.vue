@@ -2,7 +2,7 @@
  * @Author: hqwx.com
  * @Date: 2024-07-06 16:17:14
  * @LastEditors: WRG(woter_wang@live.com)
- * @LastEditTime: 2024-07-08 18:05:02
+ * @LastEditTime: 2024-07-15 16:17:51
  * @😍: 😃😃
 -->
 <template>
@@ -144,6 +144,7 @@
 						<label
 							for="addimg_btn_repair"
 							class="addimg_btn_wraper"
+							v-if="!repairImgUrl"
 						>
 							<div class="drop_img">
 								<input
@@ -158,6 +159,21 @@
 								<p class="add_img_desc">Add the image you want to repair, in png/jpg format</p>
 							</div>
 						</label>
+						<!-- 缩略图 -->
+						<div
+							class="repair_img_thumb"
+							@click="openEditImgPop"
+							v-else
+						>
+							<img
+								:src="repairImgUrl"
+								alt=""
+							>
+							<span
+								class="del_repair_img_file"
+								@click="deleteRepairImgUrl"
+							></span>
+						</div>
 					</div>
 					<div class="option_item option_text">
 						<h4 class="option_title">Desired Effect</h4>
@@ -170,8 +186,8 @@
 								placeholder="Enter your prompt"
 							></textarea>
 							<div class="textarea_tool">
-								<div class="textarea_tool_item random_txt">🎲</div>
 								<div class="textarea_tool_item clear_txt"></div>
+								<div class="textarea_tool_item random_txt">🎲</div>
 							</div>
 						</div>
 					</div>
@@ -361,6 +377,7 @@ export default {
 			//
 			textToImgFile: null,
 			textToImgFileUrl: '',
+			repairImgUrl: '',
 			//生成按钮是否可点击
 			abletoCreate: false,
 		}
@@ -388,7 +405,15 @@ export default {
 				alert('Only png/jpg/jpeg format images are supported')
 				return
 			}
-			this.$refs.editImg.open(file)
+			this.repairImgUrl = URL.createObjectURL(file)
+			this.repairImgFile = file
+			this.openEditImgPop()
+		},
+		openEditImgPop(){
+			this.$refs.editImg.open(this.repairImgFile)
+		},
+		deleteRepairImgUrl () {
+			this.repairImgUrl = ''
 		},
 		uploadTextToImg (e) {
 			const abledType = [ 'image/png', 'image/jpg', 'image/jpeg' ];
@@ -596,6 +621,7 @@ export default {
 								font-size: 18px;
 								transform-origin: center;
 								transition: all 1s ease-in-out;
+								margin-right: 10px;
 
 								&:hover {
 									animation: rotate 1s ease-in-out;
@@ -615,23 +641,9 @@ export default {
 								height: 18px;
 								background: url('~@/assets/svg/icon_delete.svg') no-repeat center center;
 								background-size: contain;
-								margin-right: 10px;
 
 								&:hover {
 									animation: jitter 0.5s ease-in-out;
-								}
-								@keyframes jitter {
-									0%,
-									50% {
-										transform: rotate(30deg);
-									}
-									30%,
-									70% {
-										transform: rotate(-30deg);
-									}
-									100% {
-										transform: rotate(0deg);
-									}
 								}
 							}
 						}
@@ -972,6 +984,38 @@ export default {
 		.addimg_btn {
 			display: none;
 		}
+
+		.repair_img_thumb {
+			width: 100%;
+			height: 210px;
+			border-radius: 9px;
+			margin: 0 10px 0 0;
+			position: relative;
+			background: $black_02;
+			display: flex;
+			justify-content: center;
+
+			img {
+				width: 100%;
+				height: 100%;
+				object-fit: contain;
+			}
+
+			.del_repair_img_file {
+				width: 18px;
+				height: 18px;
+				background: url('~@/assets/svg/icon_delete.svg') no-repeat center center;
+				background-size: contain;
+				position: absolute;
+				right: 10px;
+				bottom: 10px;
+				cursor: pointer;
+
+				&:hover{
+					animation: jitter 0.5s ease-in-out;
+				}
+			}
+		}
 	}
 	// 滑块样式
 	// [type='range'] {
@@ -1027,6 +1071,20 @@ export default {
 
 		.vue-slider-dot-tooltip-inner {
 			border-color: $pink;
+		}
+	}
+
+	@keyframes jitter {
+		0%,
+		50% {
+			transform: rotate(30deg);
+		}
+		30%,
+		70% {
+			transform: rotate(-30deg);
+		}
+		100% {
+			transform: rotate(0deg);
 		}
 	}
 </style>
