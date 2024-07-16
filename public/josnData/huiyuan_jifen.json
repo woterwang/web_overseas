@@ -1,0 +1,65 @@
+{
+  "top": {
+    "banner": "https://www.fantasylabsai.com/resource/test/landinnpage%20advantage.png"
+  },
+  "middle_upgrade": [
+    {
+      "level": 1,
+      "credits": 500,
+      "detail": [
+        "Various art styles",
+        "High Resolution Image",
+        "High Priority Generation",
+        "2 Image Grid Output"
+      ]
+    },
+    {
+      "level": 2,
+      "credits": 2000,
+      "detail": [
+        "Various art styles",
+        "High Resolution Image",
+        "High Priority Generation",
+        "4 Image Grid Output",
+        "Better Image Quality"
+      ]
+    },
+    {
+      "level": 3,
+      "credits": 5000,
+      "detail": [
+        "Various art styles",
+        "High Resolution Image",
+        "High Priority Generation",
+        "4 Image Grid Output",
+        "Better Image Quality",
+        "Priority Customer Support"
+      ]
+    }
+  ],
+  "middle_credit": [
+    500,
+    1300,
+    7000
+  ],
+  "bottom": [
+    {
+      "banner": "https://www.fantasylabsai.com/resource/test/stars.png",
+      "describe": "FantasyLabs awakened my dormant artistic talent. With a variety of options and a user-friendly interface, you can create amazing and unique works of art. It's easy to learn and create every day, and there are tons of models and templates where you can get inspired and even share your work! I'm glad I found it, I really like it! 🤩🤩🤩",
+      "avatar": "https://www.fantasylabsai.com/resource/test/style01.png",
+      "name": "@Jan Dapri"
+    },
+    {
+      "banner": "https://www.fantasylabsai.com/resource/test/stars.png",
+      "describe": "After trying other graphic AI programs and apps, I found FantasyLabs to be better than most of the others, especially with the huge amount of models and templates provided. These models can achieve amazing results for both realistic and anime creations, and they are efficient, fast, realistic, customizable, and flawless. The results you generate will make you addicted. This is probably the best AI program you can come across.",
+      "avatar": "https://www.fantasylabsai.com/resource/test/style01.png",
+      "name": "@Adx Kide"
+    },
+    {
+      "banner": "https://www.fantasylabsai.com/resource/test/stars.png",
+      "describe": "FantasyLabs is the most amazing AI generation tool I have ever seen. While most AI have issues with hands, certain objects or composition, you can expect any prompt you enter in FantasyLabs to be of extremely high quality. The AI is constantly being upgraded and features are being added. This is one of the most promising AI projects I think, and it's seriously worth a try.",
+      "avatar": "https://www.fantasylabsai.com/resource/test/style01.png",
+      "name": "@Mid Linke"
+    }
+  ]
+}

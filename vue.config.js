@@ -2,7 +2,7 @@
  * @Author: hqwx.com
  * @Date: 2024-07-05 14:30:12
  * @LastEditors: WRG(woter_wang@live.com)
- * @LastEditTime: 2024-07-08 16:27:17
+ * @LastEditTime: 2024-07-16 15:30:30
  * @😍: 😃😃
  */
 const { defineConfig } = require('@vue/cli-service')
@@ -15,6 +15,7 @@ module.exports = defineConfig({
 		resolve: {
 			alias: {
 				"@": path.resolve(__dirname, "src"),
+				"@jonsData": path.resolve(__dirname, "public/josnData/"),
 			},
 		},
 		devServer: {

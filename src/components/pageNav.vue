@@ -2,7 +2,7 @@
  * @Author: hqwx.com
  * @Date: 2024-07-04 21:34:03
  * @LastEditors: WRG(woter_wang@live.com)
- * @LastEditTime: 2024-07-08 16:50:29
+ * @LastEditTime: 2024-07-16 16:21:47
  * @😍: 😃😃
 -->
 <template>
@@ -31,7 +31,27 @@
 			:to="creditUrl"
 			class="nav_item member_item member_xp"
 		>888</router-link>
-		<div class="nav_item user_head"></div>
+		<div class="nav_item user_head">
+			<div class="user_drop_menu">
+				<div
+					to="/user"
+					class="nav_item userid"
+				>
+					<div class="info">
+						<span>User ID</span>
+						<span>SDKLFIEKK3434NSDR</span>
+					</div>
+				</div>
+				<a
+					class="nav_item support"
+					:href="'mailto:'+linkData.email"
+				>Support</a>
+				<div
+					to="/logout"
+					class="nav_item logout"
+				>Logout</div>
+			</div>
+		</div>
 		<router-link
 			to="/login"
 			class="nav_item login_btn"
@@ -40,11 +60,13 @@
 	</nav>
 </template>
 <script>
+const linkData = require('@jonsData/dibulan.json');
 export default {
 	name: "PageNav",
 	functional: false,
 	data () {
 		return {
+			linkData,
 			// 1、如果用户已有会员等级，则点击顶栏的积分icon时，会直接切到积分页；
 			// 2、如用户未有等级，则点击顶栏的升级或积分icon，都是跳转升级页，主动点击升级页下方的“credit”的tab才会切换到积分页；
 			creditUrl: this.userLevel() ? '/buy/1' : '/buy/0',
@@ -56,7 +78,7 @@ export default {
 		//用户是否有会员等级
 		userLevel: () => Math.random() > 0.5 ? true : false,
 		//用户是否登录
-		userLogin: () => Math.random() > 0.5 ? true : false,
+		userLogin: () => true,
 	},
 }
 </script>
@@ -69,6 +91,7 @@ export default {
 		font-size: 16px;
 		background-color: $black_01;
 		padding: 0 30px;
+		position: relative;
 		.log_txt {
 			margin: 0 auto 0 0;
 			color: $white;
@@ -143,12 +166,19 @@ export default {
 				}
 			}
 			&.user_head {
-				width: 40px;
-				height: 40px;
-				border-radius: 50%;
-				border: 1px solid $gray;
+				width: 60px;
+				height: 60px;
+				// border-radius: 50%;
+				// border: 1px solid $gray;
 				margin: 0;
 				background: url('~@/assets/svg/icon_user.svg') no-repeat center center;
+				background-size: 68% 68%;
+
+				&:hover {
+					.user_drop_menu {
+						display: flex;
+					}
+				}
 			}
 
 			&.login_btn {
@@ -157,6 +187,81 @@ export default {
 				border: 0;
 				border-radius: 20px;
 				margin: 0 0 0 auto;
+			}
+		}
+		.user_drop_menu {
+			display: none;
+			position: absolute;
+			top: 62px;
+			right: 40px;
+			background-color: $black_01;
+			border: 1px solid $black_03;
+			border-radius: 10px;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			.nav_item {
+				display: flex;
+				// flex-direction: column;
+				// justify-content: center;
+				align-items: center;
+				width: 204px;
+				height: 48px;
+				padding: 10px 20px;
+				border-bottom: 1px solid $black_03;
+				font-size: 16px;
+				&:last-child {
+					border: 0;
+				}
+
+				&:hover {
+					background-color: $black_02;
+				}
+
+				&.userid {
+					&:before {
+						content: '';
+						margin-right: 10px;
+						width: 20px;
+						height: 20px;
+						flex-shrink: 0;
+						background: url('~@/assets/svg/icon_userid.svg') no-repeat center center;
+					}
+				}
+				&.support {
+					&:before {
+						content: '';
+						margin-right: 10px;
+						width: 20px;
+						height: 20px;
+						flex-shrink: 0;
+						background: url('~@/assets/svg/icon_support.svg') no-repeat center center;
+					}
+				}
+				&.logout {
+					&:before {
+						content: '';
+						margin-right: 10px;
+						width: 20px;
+						height: 20px;
+						flex-shrink: 0;
+						background: url('~@/assets/svg/icon_logout.svg') no-repeat center center;
+					}
+				}
+
+				.info {
+					display: flex;
+					flex-direction: column;
+					justify-content: center;
+					// align-items: center;
+
+					span {
+						&:last-child {
+							font-size: 14px;
+							color: $gray;
+						}
+					}
+				}
 			}
 		}
 	}

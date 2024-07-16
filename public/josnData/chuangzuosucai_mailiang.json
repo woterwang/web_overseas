@@ -1,0 +1,419 @@
+{
+  "t2i_prompt": [
+    "A girl sitting in a daze in a cafe",
+    "A boy, luffy, straw hat, smile, upper body",
+    "A beautiful girl, on street, fashion dress, earrings, Ray Tracing, realistic,  upper body",
+    "Girl in retro 80s dress, portrait, shot on videotape",
+    "Cyberpunk, a female warrior, full body mecha, wires, future city",
+    "super hero, American comic, 90’s comic, old fashion, wonder woman"
+  ],
+  "quantity": [
+    {
+      "name": "1",
+      "count": 1,
+      "level_req": 0
+    },
+    {
+      "name": "2",
+      "count": 2,
+      "level_req": 1
+    },
+    {
+      "name": "3",
+      "count": 3,
+      "level_req": 2
+    },
+    {
+      "name": "4",
+      "count": 4,
+      "level_req": 2
+    }
+  ],
+  "style_model": [
+    {
+      "model_id": "reality",
+      "api_address": "realman",
+      "name": "Reality",
+      "banner": "https://www.fantasylabsai.com/resource/test/style01.png"
+    },
+    {
+      "model_id": "anime",
+      "api_address": "comic",
+      "name": "Anime",
+      "banner": "https://www.fantasylabsai.com/resource/test/style01.png"
+    },
+    {
+      "model_id": "3dredering",
+      "api_address": "realman",
+      "preset_prompt": "((3d rendering)), detailed cg, ",
+      "name": "3D Redering",
+      "banner": "https://www.fantasylabsai.com/resource/test/style01.png"
+    },
+    {
+      "model_id": "disney",
+      "api_address": "realman",
+      "preset_prompt": "((Disney style)), ((3d cartoon)), bright colors, ",
+      "name": "Disney",
+      "banner": "https://www.fantasylabsai.com/resource/test/style01.png"
+    },
+    {
+      "model_id": "28d",
+      "api_address": "28d",
+      "name": "CG",
+      "banner": "https://www.fantasylabsai.com/resource/test/style01.png"
+    },
+    {
+      "model_id": "comics",
+      "api_address": "comic",
+      "preset_prompt": "90's comic, comic style, ",
+      "name": "Comics",
+      "banner": "https://www.fantasylabsai.com/resource/test/style01.png"
+    },
+    {
+      "model_id": "portrait",
+      "api_address": "realman",
+      "preset_prompt": "portrait, ",
+      "name": "Portrait",
+      "banner": "https://www.fantasylabsai.com/resource/test/style01.png"
+    },
+    {
+      "model_id": "vangogh",
+      "api_address": "realman",
+      "preset_prompt": "Van Gogh style, ",
+      "name": "Van Gogh",
+      "banner": "https://www.fantasylabsai.com/resource/test/style01.png"
+    },
+    {
+      "model_id": "popart",
+      "api_address": "realman",
+      "preset_prompt": "Pop Art style, poster, ",
+      "name": "Pop Art",
+      "banner": "https://www.fantasylabsai.com/resource/test/style01.png"
+    },
+    {
+      "model_id": "oilpainting",
+      "api_address": "realman",
+      "preset_prompt": "Oil Painting, ",
+      "name": "Oil Painting",
+      "banner": "https://www.fantasylabsai.com/resource/test/style01.png"
+    }
+  ],
+  "t2i_editorschoice": {
+    "t2i_sort": [
+      {
+        "name": "🔥 Popular",
+        "items": [
+          "People_6_real",
+          "People_2_real",
+          "Mechanical_1_hyperreal",
+          "3D_2_real",
+          "Anime_1_anime",
+          "Anime_5_anime",
+          "People_1_real",
+          "People_5_real",
+          "Cartoon_3_real",
+          "People_3_real",
+          "People_4_real",
+          "Anime_2_anime",
+          "Anime_3_anime",
+          "Anime_6_anime",
+          "Anime_4_anime",
+          "3D_1_real",
+          "3D_3_real",
+          "3D_4_hyperreal",
+          "Cartoon_1_anime",
+          "Cartoon_2_anime",
+          "Cartoon_4_anime",
+          "Mechanical_2_hyperreal",
+          "Mechanical_3_anime",
+          "Mechanical_4_anime"
+        ]
+      },
+      {
+        "name": "Reality",
+        "items": [
+          "People_2_real",
+          "People_3_real",
+          "People_4_real",
+          "People_2_real",
+          "People_3_real",
+          "People_4_real",
+          "People_2_real",
+          "People_3_real",
+          "People_4_real"
+        ]
+      },
+      {
+        "name": "Anime",
+        "items": [
+          "People_2_real",
+          "People_3_real",
+          "People_4_real",
+          "People_2_real",
+          "People_3_real",
+          "People_4_real",
+          "People_2_real",
+          "People_3_real",
+          "People_4_real"
+        ]
+      },
+      {
+        "name": "Comic",
+        "items": [
+          "People_2_real",
+          "People_3_real",
+          "People_4_real",
+          "People_2_real",
+          "People_3_real",
+          "People_4_real",
+          "People_2_real",
+          "People_3_real",
+          "People_4_real"
+        ]
+      }
+    ],
+    "t2i_items": [
+      {
+        "id": "People_6_real",
+        "style_model": "reality",
+        "is_vip": true,
+        "prompt": "1 beautiful girl, 22 years old model face cute girl, on street, fashion dress, earrings, Ray Tracing, realistic,  upper body",
+        "banner": "https://www.fantasylabsai.com/resource/test/artwork01.png"
+      },
+      {
+        "id": "People_2_real",
+        "style_model": "reality",
+        "is_vip": true,
+        "prompt": "exceptional quality, 8k UHD resolution, women's springtime attire featuring lively floral patterns in pastel tones, chiffon top with gracefully designed bell-shaped sleeves for a breezy elegance",
+        "banner": "https://www.fantasylabsai.com/resource/test/artwork01.png"
+      },
+      {
+        "id": "Mechanical_1_hyperreal",
+        "style_model": "28d",
+        "prompt": "masterpiece, best quality, a girl wearing mech, robot joints, mechanical parts, 8k",
+        "banner": "https://www.fantasylabsai.com/resource/test/artwork01.png"
+      },
+      {
+        "id": "3D_2_real",
+        "style_model": "3dredering",
+        "is_vip": true,
+        "prompt": "masterpiece, detailed CG, 3d rendering, hdr, a girl, leather clothing, Resident Evil game, Dark tone",
+        "banner": "https://www.fantasylabsai.com/resource/test/artwork01.png"
+      },
+      {
+        "id": "Anime_1_anime",
+        "style_model": "anime",
+        "is_vip": true,
+        "prompt": "1boy, luffy, straw hat, smile, upper body",
+        "banner": "https://www.fantasylabsai.com/resource/test/artwork01.png"
+      },
+      {
+        "id": "Anime_5_anime",
+        "style_model": "anime",
+        "is_vip": true,
+        "prompt": "masterpiece, detailed focus, official art, extremely detailed CG, unity 8K, 1 boy, blonde, jacket, portrait",
+        "banner": "https://www.artandlifebest.com/aifantasi/image/word_art/Anime_5_anime.jpg"
+      },
+      {
+        "id": "People_1_real",
+        "style_model": "reality",
+        "prompt": "model woman with black hair sitting looking at the camera, open sweater with dress shirt underneath, solid and light background, studio light",
+        "banner": "https://www.fantasylabsai.com/resource/test/artwork01.png"
+      },
+      {
+        "id": "People_5_real",
+        "style_model": "reality",
+        "is_vip": true,
+        "prompt": "Cyberpunk, a female warrior, full body mecha, wires, future city",
+        "banner": "https://www.fantasylabsai.com/resource/test/artwork01.png"
+      },
+      {
+        "id": "Cartoon_3_real",
+        "style_model": "disney",
+        "is_vip": true,
+        "prompt": "22 years old beautiful girl,((Disney style)), ((3d cartoon)), bright colors, upper body",
+        "banner": "https://www.fantasylabsai.com/resource/test/artwork01.png"
+      },
+      {
+        "id": "People_3_real",
+        "style_model": "reality",
+        "prompt": "Handsome man, wearing tight fitting clothes, muscular, gym, sunny and handsome",
+        "banner": "https://www.fantasylabsai.com/resource/test/artwork01.png"
+      },
+      {
+        "id": "People_4_real",
+        "style_model": "reality",
+        "prompt": "Middle aged man, leather jacket, whiskers, riding a motorcycle, sunglasses, ray trace",
+        "banner": "https://www.fantasylabsai.com/resource/test/artwork01.png"
+      },
+      {
+        "id": "Anime_2_anime",
+        "style_model": "anime",
+        "is_vip": true,
+        "prompt": "masterpiece, best quality, a girl, golden bob, earrings, blue eyes, red skirt, in bedroom",
+        "banner": "https://www.fantasylabsai.com/resource/test/artwork01.png"
+      },
+      {
+        "id": "Anime_3_anime",
+        "style_model": "anime",
+        "prompt": "Human avatar, fashion photography, portrait, in blue lush jungle with flowers, 3d rendering, hdr",
+        "banner": "https://www.fantasylabsai.com/resource/test/artwork01.png"
+      },
+      {
+        "id": "Anime_6_anime",
+        "style_model": "anime",
+        "is_vip": true,
+        "prompt": "a girl, 90‘s comic style, blue eyes, masterpiece, starry sky, stars, space suit",
+        "banner": "https://www.fantasylabsai.com/resource/test/artwork01.png"
+      },
+      {
+        "id": "Anime_4_anime",
+        "style_model": "anime",
+        "is_vip": true,
+        "prompt": "22 year old cute girl, school uniform, sunshine, city, shy, Japanese manga, 8k UHD resolution, ",
+        "banner": "https://www.fantasylabsai.com/resource/test/artwork01.png"
+      },
+      {
+        "id": "3D_1_real",
+        "style_model": "3dredering",
+        "is_vip": true,
+        "prompt": "masterpiece, detailed CG, 3d rendering, hdr, handsome guy, cop suit, policeman, indoor",
+        "banner": "https://www.fantasylabsai.com/resource/test/artwork01.png"
+      },
+      {
+        "id": "3D_3_real",
+        "style_model": "3dredering",
+        "prompt": "masterpiece, detailed CG, 3d rendering, hdr, a cute girl, mech, light blue and white, Final Fantasy CG style, ray trace",
+        "banner": "https://www.fantasylabsai.com/resource/test/artwork01.png"
+      },
+      {
+        "id": "3D_4_hyperreal",
+        "style_model": "28d",
+        "is_vip": true,
+        "prompt": "masterpiece, detailed CG, a girl act Casual game role, super mario style, 3d rendering, bright colors, ",
+        "banner": "https://www.fantasylabsai.com/resource/test/artwork01.png"
+      },
+      {
+        "id": "Cartoon_1_anime",
+        "style_model": "anime",
+        "prompt": "DC comic style, joker, joker makeup, close up, comic book style, city background, night",
+        "banner": "https://www.fantasylabsai.com/resource/test/artwork01.png"
+      },
+      {
+        "id": "Cartoon_2_anime",
+        "style_model": "anime",
+        "prompt": "super hero, American comic, 90’s comic, old fashion, wonder woman",
+        "banner": "https://www.fantasylabsai.com/resource/test/artwork01.png"
+      },
+      {
+        "id": "Cartoon_4_anime",
+        "style_model": "anime",
+        "is_vip": true,
+        "prompt": "iron man, American comic style, old fashion",
+        "banner": "https://www.fantasylabsai.com/resource/test/artwork01.png"
+      },
+      {
+        "id": "Mechanical_2_hyperreal",
+        "style_model": "28d",
+        "prompt": "masterpiece, best quality, 8k, a soldier in Oni mech suit, carried a futuristic weapon, froggy ruins, sci-fi",
+        "banner": "https://www.fantasylabsai.com/resource/test/artwork01.png"
+      },
+      {
+        "id": "Mechanical_3_anime",
+        "style_model": "anime",
+        "is_vip": true,
+        "prompt": "masterpiece, best quality, 8k, mecha, headgear, Transformers, rendered in unreal engine, close up",
+        "banner": "https://www.fantasylabsai.com/resource/test/artwork01.png"
+      },
+      {
+        "id": "Mechanical_4_anime",
+        "style_model": "anime",
+        "prompt": "masterpiece, best quality, 8k, Gundam, white, rendered in unreal engine, upper body",
+        "banner": "https://www.fantasylabsai.com/resource/test/artwork01.png"
+      }
+    ]
+  },
+  "irp_editorschoice": {
+    "irp_sort": [
+      {
+        "name": "🔥 Popular",
+        "items": [
+          "reshape_3_real",
+          "reshape_4_real",
+          "reshape_1_real",
+          "reshape_2_real",
+          "reshape_5_real",
+          "reshape_6_real",
+          "reshape_7_real"
+        ]
+      },
+      {
+        "name": "🔥 Popular",
+        "items": [
+          "reshape_4_real",
+          "reshape_1_real",
+          "reshape_2_real",
+          "reshape_5_real",
+          "reshape_6_real"
+        ]
+      }
+    ],
+    "irp_items": [
+      {
+        "id": "reshape_3_real",
+        "style_model": "reality",
+        "is_vip": true,
+        "describe": "",
+        "prompt": "mech, cyberpunk",
+        "banner": "https://www.fantasylabsai.com/resource/test/artwork01.png"
+      },
+      {
+        "id": "reshape_4_real",
+        "style_model": "reality",
+        "is_vip": true,
+        "describe": "",
+        "prompt": "rose tattoo",
+        "banner": "https://www.fantasylabsai.com/resource/test/artwork01.png"
+      },
+      {
+        "id": "reshape_1_real",
+        "style_model": "reality",
+        "describe": "",
+        "prompt": "business suit",
+        "banner": "https://www.fantasylabsai.com/resource/test/artwork01.png"
+      },
+      {
+        "id": "reshape_2_real",
+        "style_model": "reality",
+        "is_vip": true,
+        "describe": "",
+        "prompt": "cop suit, police",
+        "banner": "https://www.fantasylabsai.com/resource/test/artwork01.png"
+      },
+      {
+        "id": "reshape_5_real",
+        "style_model": "reality",
+        "is_vip": true,
+        "describe": "",
+        "prompt": "fashion slip dress",
+        "banner": "https://www.fantasylabsai.com/resource/test/artwork01.png"
+      },
+      {
+        "id": "reshape_6_real",
+        "style_model": "reality",
+        "is_vip": true,
+        "describe": "",
+        "prompt": "dress",
+        "banner": "https://www.fantasylabsai.com/resource/test/artwork01.png"
+      },
+      {
+        "id": "reshape_7_real",
+        "style_model": "reality",
+        "is_vip": true,
+        "describe": "",
+        "prompt": "Tight fitting clothing",
+        "banner": "https://www.fantasylabsai.com/resource/test/artwork01.png"
+      }
+    ]
+  }
+}

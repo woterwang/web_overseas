@@ -2,7 +2,7 @@
  * @Author: hqwx.com
  * @Date: 2024-07-05 16:25:01
  * @LastEditors: WRG(woter_wang@live.com)
- * @LastEditTime: 2024-07-07 01:08:31
+ * @LastEditTime: 2024-07-16 15:56:10
  * @😍: 😃😃
 -->
 <template>
@@ -12,21 +12,23 @@
 				Copyright ⓒ {{ currentYear }} FantasyLabs All rights reserved.
 			</section>
 			<section class="footer_link">
-				<a href="javascript:void(0)">Terms of Service</a>
-				<a href="javascript:void(0)">Privacy Policy</a>
-				<a href="javascript:void(0)">Contact Us</a>
+				<a :href="linkData.terms">Terms of Service</a>
+				<a :href="linkData.policy">Privacy Policy</a>
+				<a :href="'mailto:'+linkData.email">Contact Us</a>
 			</section>
 		</section>
 	</footer>
 </template>
 
 <script>
+const linkData = require('@jonsData/dibulan.json');
 export default {
 	name: "PageFooter",
 	data () {
 		return {
 			// currentYear: new Date().getFullYear(),
 			currentYear: 2024,
+			linkData,
 		}
 	}
 }
@@ -44,7 +46,7 @@ export default {
 		padding: 0 20px;
 		border-top: 1px solid $gray;
 
-		.footer_content{
+		.footer_content {
 			width: 1440px;
 			margin: 0 auto;
 			display: flex;
@@ -66,7 +68,7 @@ export default {
 				margin: 0 20px 0 0;
 				color: $gray;
 				text-decoration: none;
-				&:hover{
+				&:hover {
 					text-decoration: underline;
 				}
 			}

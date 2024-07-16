@@ -2,7 +2,7 @@
  * @Author: hqwx.com
  * @Date: 2024-07-05 12:03:07
  * @LastEditors: WRG(woter_wang@live.com)
- * @LastEditTime: 2024-07-07 01:32:08
+ * @LastEditTime: 2024-07-16 15:50:40
  * @😍: 😃😃
 -->
 <template>
@@ -10,8 +10,8 @@
 		<!-- banner -->
 		<div class="part part_video">
 			<div class="left">
-				<h1>Explore Unlimited And Realistic AI Art</h1>
-				<p>Bring your deepest fantasies to life, including reality, anime, 3D, and more. Join now to start your creation.</p>
+				<h1>{{baseData.top.left_main}}</h1>
+				<p>{{baseData.top.left_sub}}</p>
 				<router-link
 					to="/create/0"
 					href="javascript:void(0)"
@@ -20,7 +20,7 @@
 			</div>
 			<div class="right">
 				<video
-					src="../../assets/video.mp4"
+					:src="baseData.top.right_video"
 					controls
 					autoplay
 					loop
@@ -31,28 +31,26 @@
 		<!-- part -->
 		<div
 			class="part part_img"
-			:class="'part_'+item"
-			v-for="item in 5"
+			v-for="(item,i) in baseData.middle"
 			:key="item"
+			:class="'part_'+(i+1)"
 		>
 			<div class="top">
-				<h1>Image Repair</h1>
-				<p>Edit images using repair mode. Simply select an area and write a description of what you want to change. Photo editing with AI Images has never been easier.</p>
+				<h1>{{ item.main }}</h1>
+				<p>{{item.sub}}</p>
 			</div>
 			<div class="bottom">
-				<img src="../../assets/temp.png" />
+				<img :src="item.banner" />
 			</div>
 		</div>
-		<div
-			class="part part_img obout_our"
-		>
+		<div class="part part_img obout_our">
 			<div class="top">
-				<h1>Our Advantage</h1>
+				<h1>{{baseData.bottom.main}}</h1>
 			</div>
 			<div class="bottom">
-				<img src="../../assets/temp1.png" />
+				<img :src="baseData.bottom.banner" />
 			</div>
-			<p>We have the most advanced image models and efficient servers, and we can meet even the most demanding customized needs. You can't even tell whether the generated results are real or AI-generated.</p>
+			<p>{{baseData.bottom.sub}}</p>
 		</div>
 
 		<!-- bottom btn -->
@@ -74,28 +72,49 @@ export default {
 	data () {
 		return {
 			createBtnState: 0,
+			//来源类型
+			sourceType: 0, // 0: 自然流星 1: 买量流量
+			//基础数据
+			baseData: null,
 		}
 	},
 	mounted () {
-		//监控part_video是否离开视口
-		const observer = new IntersectionObserver(this.handleIntersection, {
-			root: null,
-			rootMargin: '0px',
-			threshold: 0
-		})
-		observer.observe(this.$el.querySelector('.part_video'))
-
-		//监控最后一个 part_img 是否进入视口
-		const lastObserver = new IntersectionObserver(this.handleLastIntersection, {
-			root: null,
-			rootMargin: '0px',
-			threshold: 0
-		})
-		const part_imgs = this.$el.querySelectorAll('.part_img')
-		lastObserver.observe(part_imgs[ part_imgs.length - 1 ]) // 5-1
-		// lastObserver.observe(document.querySelector('.page_footer')) // 5-1
+		this.getSourceType()
 	},
 	methods: {
+		//获取流星来源
+		getSourceType () {
+			this.sourceType = this.$route.query.sourceType || 0
+			let baseData = {}
+			if (this.sourceType == 1) {
+				baseData = require('@jonsData/weidengluzhuye_mailiang.json')
+			} else {
+				baseData = require('@jonsData/weidengluzhuye_ziran.json')
+			}
+			this.baseData = baseData
+			this.$nextTick(() => {
+				this.observerBtn()
+			})
+		},
+		observerBtn () {
+			//监控part_video是否离开视口
+			const observer = new IntersectionObserver(this.handleIntersection, {
+				root: null,
+				rootMargin: '0px',
+				threshold: 0
+			})
+			observer.observe(this.$el.querySelector('.part_video'))
+
+			//监控最后一个 part_img 是否进入视口
+			const lastObserver = new IntersectionObserver(this.handleLastIntersection, {
+				root: null,
+				rootMargin: '0px',
+				threshold: 0
+			})
+			const part_imgs = this.$el.querySelectorAll('.part_img')
+			lastObserver.observe(part_imgs[ part_imgs.length - 1 ]) // 5-1
+			// lastObserver.observe(document.querySelector('.page_footer')) // 5-1
+		},
 		//监控part_video是否离开视口
 		handleIntersection (entries) {
 			entries.forEach(entry => {
@@ -229,21 +248,24 @@ export default {
 					}
 				}
 
-				&.obout_our{
+				&.obout_our {
 					border-top: 2px solid $black_02;
 					padding: 60px 0 0 0;
 					margin: 80px 0 0 0;
 
-					.bottom{
+					.bottom {
 						width: 80%;
+
+						img{
+							width: 100%;
+						}
 					}
 
-					p{
+					p {
 						width: 90%;
 						font-size: 20px;
 						margin: 40px 0;
 						text-align: center;
-
 					}
 				}
 			}
