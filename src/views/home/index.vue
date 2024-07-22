@@ -91,6 +91,7 @@ export default {
 			} else {
 				baseData = require('@jonsData/weidengluzhuye_ziran.json')
 			}
+			localStorage.setItem('sourceType', this.sourceType)
 			this.baseData = baseData
 			this.$nextTick(() => {
 				this.observerBtn()

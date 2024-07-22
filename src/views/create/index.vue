@@ -2,7 +2,7 @@
  * @Author: hqwx.com
  * @Date: 2024-07-06 16:17:14
  * @LastEditors: WRG(woter_wang@live.com)
- * @LastEditTime: 2024-07-15 16:17:51
+ * @LastEditTime: 2024-07-22 16:27:35
  * @😍: 😃😃
 -->
 <template>
@@ -314,6 +314,7 @@ export default {
 	},
 	data () {
 		return {
+			sourceType: 0,
 			addimg_btn_text_to_img: true,
 			addimg_btn_repair: true,
 			//当前选项卡-左侧 - 0: Text to Image, 1: Image Repair
@@ -380,9 +381,25 @@ export default {
 			repairImgUrl: '',
 			//生成按钮是否可点击
 			abletoCreate: false,
+			//来源类型数据
+			baseData: {},
 		}
 	},
+	mounted () {
+		this.getSourceType();
+	},
 	methods: {
+		//获取流星来源
+		getSourceType () {
+			this.sourceType = localStorage.getItem('sourceType') || 0
+			let baseData = {}
+			if (this.sourceType == 1) {
+				baseData = require('@jonsData/chuangzuosucai_mailiang.json')
+			} else {
+				baseData = require('@jonsData/chuangzuosucai_ziran.json')
+			}
+			this.baseData = baseData
+		},
 		changeLeftTab (type) {
 			this.leftCurrTab = type
 		},
@@ -409,7 +426,7 @@ export default {
 			this.repairImgFile = file
 			this.openEditImgPop()
 		},
-		openEditImgPop(){
+		openEditImgPop () {
 			this.$refs.editImg.open(this.repairImgFile)
 		},
 		deleteRepairImgUrl () {
@@ -690,8 +707,23 @@ export default {
 						cursor: pointer;
 
 						&.disabled {
-							background: $gray;
+							// background: $gray;
 							cursor: not-allowed;
+							position: relative;
+							&.disabled {
+								cursor: not-allowed;
+								position: relative;
+								&::after {
+									content: '';
+									background: url('~@/assets/svg/icon_disabled.svg') no-repeat 0 0;
+									background-size: contain;
+									width: 10px;
+									height: 10px;
+									position: absolute;
+									right: 5px;
+									top: 5px;
+								}
+							}
 						}
 
 						&.active {
@@ -1011,7 +1043,7 @@ export default {
 				bottom: 10px;
 				cursor: pointer;
 
-				&:hover{
+				&:hover {
 					animation: jitter 0.5s ease-in-out;
 				}
 			}
