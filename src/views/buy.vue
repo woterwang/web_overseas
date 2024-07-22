@@ -2,7 +2,7 @@
  * @Author: hqwx.com
  * @Date: 2024-07-05 18:11:56
  * @LastEditors: WRG(woter_wang@live.com)
- * @LastEditTime: 2024-07-06 23:39:01
+ * @LastEditTime: 2024-07-22 16:03:34
  * @😍: 😃😃
 -->
 <template>
@@ -15,61 +15,31 @@
 			<section class="top">
 				<h1>Start Your Unrestricted Creative Journey</h1>
 				<div class="img">
-					<img src="@/assets/temp1.png" />
+					<img :src="huiyuanAandJifen.top.banner" />
 				</div>
 			</section>
 			<section class="upgrade_list">
-				<div class="package_item item_basic">
-					<h4 class="title">Basic</h4>
+				<div
+					class="package_item"
+					v-for="(item,i) in huiyuanAandJifen.middle_upgrade"
+					:class="upgrade_class[i]['class']"
+					:key="item.level"
+				>
+					<h4 class="title">{{upgrade_class[i]['label']}}</h4>
 					<div class="price">
 						<span class="orgin_price">$14.99</span>
 						<span class="curr_price">$9.99</span>
 						<span class="unit">/month</span>
 					</div>
 					<div class="content">
-						<div class="item"><span class="highlight">500 credits</span> /month</div>
-						<div class="item">Basic AI Image Repair</div>
-						<div class="item">Basic AI Video Repair</div>
-						<div class="item">Basic AI Video Repair</div>
-						<div class="item">Basic AI Video Repair</div>
-					</div>
-					<div class="btn">Get It Now</div>
-				</div>
-				<div class="package_item item_plus">
-					<span class="tag"></span>
-					<h4 class="title">Plus</h4>
-					<div class="price">
-						<span class="orgin_price">$44.99</span>
-						<span class="curr_price">$29.99</span>
-						<span class="unit">/month</span>
-
-					</div>
-					<div class="content">
-						<div class="item"><span class="highlight">5000 credits</span> /month</div>
-						<div class="item">Unlimited AI Image Repair</div>
-						<div class="item">Basic AI Video Repair</div>
-						<div class="item">Basic AI Video Repair</div>
-						<div class="item">Basic AI Video Repair</div>
-						<div class="item">Unlimited AI Video Repair</div>
-					</div>
-					<div class="btn">Get It Now</div>
-				</div>
-				<div class="package_item item_pro">
-					<span class="tag"></span>
-					<h4 class="title">Pro</h4>
-					<div class="price">
-						<span class="orgin_price">$64.99</span>
-						<span class="curr_price">$49.99</span>
-						<span class="unit">/month</span>
-					</div>
-					<div class="content">
-						<div class="item"><span class="highlight">50000 credits</span> /month</div>
-						<div class="item">Unlimited AI Image Repair</div>
-						<div class="item">Unlimited AI Video Repair</div>
-						<div class="item">Unlimited AI Video Repair</div>
-						<div class="item">Unlimited AI Video Repair</div>
-						<div class="item">Unlimited AI Video Repair</div>
-						<div class="item">Unlimited AI Video Repair</div>
+						<div class="item">
+							<span class="highlight">{{ item.credits }} credits</span> /month
+						</div>
+						<div
+							v-for="(val,index) in item.detail"
+							:key="index"
+							class="item"
+						>{{val}}</div>
 					</div>
 					<div class="btn">Get It Now</div>
 				</div>
@@ -88,38 +58,35 @@
 				</div>
 			</section>
 			<section class="credit_list">
-				<div class="credit_item credit_1">
+				<div
+					class="credit_item"
+					v-for="(item,i) in huiyuanAandJifen.middle_credit"
+					:class="'credit_'+(i+1)"
+					:key="item"
+				>
 					<span class="icon"></span>
-					<span class="highlight">500 credits</span>
+					<span class="highlight">{{ item }} credits</span>
 					<span class="curr_price">$9.99</span>
-					<div class="btn">Buy Now</div>
-				</div>
-				<div class="credit_item credit_2">
-					<span class="tag"></span>
-					<span class="icon"></span>
-					<span class="highlight">1300 credits</span>
-					<span class="curr_price">$19.99</span>
-					<div class="btn">Buy Now</div>
-				</div>
-				<div class="credit_item credit_3">
-					<span class="tag"></span>
-					<span class="icon"></span>
-					<span class="highlight">3500 credits</span>
-					<span class="curr_price">$49.99</span>
 					<div class="btn">Buy Now</div>
 				</div>
 			</section>
 		</section>
 		<!-- maine success -->
-		<section class="upgrade_list" v-show="currentTab == 3">
+		<section
+			class="upgrade_list"
+			v-show="currentTab == 3"
+		>
 			<div class="package_item item_plus item_maine">
 				<h4 class="title">You have successfully unlocked the following feature</h4>
 				<div class="content">
-					<div class="item"><span class="highlight">500 credits</span> /month</div>
-					<div class="item">Basic AI Image Repair</div>
-					<div class="item">Basic AI Video Repair</div>
-					<div class="item">Basic AI Video Repair</div>
-					<div class="item">Basic AI Video Repair</div>
+					<div class="item">
+						<span class="highlight">{{ userCurLevelInfo.credits }} credits</span> /month
+					</div>
+					<div
+						v-for="(val,index) in userCurLevelInfo.detail"
+						:key="index"
+						class="item"
+					>{{val}}</div>
 				</div>
 				<div class="btn">Activated</div>
 			</div>
@@ -141,24 +108,26 @@
 		<section class="reviews">
 			<h1 class="highlight">Reviews From Users</h1>
 			<div class="reviews_list">
-				<div class="review_item">
+				<div
+					class="review_item"
+					v-for="(val,i) in huiyuanAandJifen.bottom"
+					:key="i"
+				>
 					<!-- <span class="star"></span> -->
 					<img
-						src="@/assets/reviews_1.png"
+						:src="val.banner"
+						class="star"
 						alt=""
 					>
-				</div>
-				<div class="review_item">
-					<img
-						src="@/assets/reviews_2.png"
-						alt=""
-					>
-				</div>
-				<div class="review_item">
-					<img
-						src="@/assets/reviews_3.png"
-						alt=""
-					>
+					<div class="evaluation">{{ val.describe }}</div>
+					<div class="user">
+						<img
+							:src="val.avatar"
+							alt=""
+							class="avatar"
+						>
+						<span class="name">{{ val.name }}</span>
+					</div>
 				</div>
 			</div>
 		</section>
@@ -166,11 +135,26 @@
 </template>
 
 <script>
+import huiyuanAandJifen from '@jonsData/huiyuan_jifen.json'
 export default {
 	name: "Buy",
 	data () {
 		return {
 			currentTab: this.$route.params.type || 0,
+			userCurLevel: 1,
+			huiyuanAandJifen,
+			upgrade_class: [
+				{
+					class: 'item_basic',
+					label: 'Basic'
+				}, {
+					class: 'item_plus',
+					label: 'Plus'
+				}, {
+					class: 'item_pro',
+					label: 'Pro'
+				},
+			]
 		}
 	},
 	methods: {
@@ -182,7 +166,12 @@ export default {
 		'$route' (to, from) {
 			this.currentTab = to.params.type || 0
 		}
-	}
+	},
+	computed: {
+		userCurLevelInfo () {
+			return this.huiyuanAandJifen.middle_upgrade.find(item => item.level == this.userCurLevel)
+		}
+	},
 }
 </script>
 
@@ -375,7 +364,7 @@ export default {
 				}
 			}
 
-			.item_maine{
+			.item_maine {
 				padding-top: 50px;
 				.title {
 					color: $gold;
@@ -384,7 +373,7 @@ export default {
 					padding: 0 0 30px 0;
 					border-bottom: 1px solid $gray;
 				}
-				
+
 				.btn {
 					background: $black_01;
 					color: $green;
@@ -558,14 +547,42 @@ export default {
 				justify-content: space-between;
 				align-items: center;
 				.review_item {
-					width: 30%;
+					width: 33%;
 					height: 300px;
-					border-radius: 5px;
+					background: $black_03;
+					border-radius: 8px;
+					padding: 20px;
+					display: flex;
+					flex-direction: column;
+					justify-content: center;
 
-					img {
-						width: 100%;
-						height: 100%;
-						border-radius: 5px;
+					.star {
+						height: 14px;
+						width: 73px;
+						margin: 10px 0;
+						object-fit: contain;
+					}
+
+					.evaluation{
+						font-size: 13px;
+						margin: 0 0 20px 0;
+						color: $white;
+					}
+					.user{
+						margin: auto 0 0 0;
+						display: flex;
+						align-items: center;
+					}
+					.avatar{
+						width: 40px;
+						height: 40px;
+						border-radius: 50%;
+					}
+					.name{
+						font-size: 13px;
+						margin: 0 0 0 10px;
+						color: $gray;
+						font-weight: 600;
 					}
 				}
 			}
