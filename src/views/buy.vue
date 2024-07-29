@@ -2,49 +2,72 @@
  * @Author: hqwx.com
  * @Date: 2024-07-05 18:11:56
  * @LastEditors: WRG(woter_wang@live.com)
- * @LastEditTime: 2024-07-22 16:03:34
+ * @LastEditTime: 2024-07-29 16:08:09
  * @😍: 😃😃
 -->
 <template>
 	<article class="page_buy">
 		<!-- upgrade_list - Upgrade -->
-		<section
-			class="upgrade"
-			v-show="currentTab == 0"
-		>
-			<section class="top">
-				<h1>Start Your Unrestricted Creative Journey</h1>
-				<div class="img">
-					<img :src="huiyuanAandJifen.top.banner" />
-				</div>
-			</section>
-			<section class="upgrade_list">
-				<div
-					class="package_item"
-					v-for="(item,i) in huiyuanAandJifen.middle_upgrade"
-					:class="upgrade_class[i]['class']"
-					:key="item.level"
-				>
-					<h4 class="title">{{upgrade_class[i]['label']}}</h4>
-					<div class="price">
-						<span class="orgin_price">$14.99</span>
-						<span class="curr_price">$9.99</span>
-						<span class="unit">/month</span>
-					</div>
+		<template v-if="currentTab == 0">
+			<!-- 有等级 -->
+			<section
+				class="upgrade_list"
+				v-if="isVip"
+			>
+				<div class="package_item item_plus item_maine">
+					<h4 class="title">You have successfully unlocked the following feature</h4>
 					<div class="content">
 						<div class="item">
-							<span class="highlight">{{ item.credits }} credits</span> /month
+							<span class="highlight">{{ userCurLevelInfo.credits }} credits</span> /month
 						</div>
 						<div
-							v-for="(val,index) in item.detail"
+							v-for="(val,index) in userCurLevelInfo.detail"
 							:key="index"
 							class="item"
 						>{{val}}</div>
 					</div>
-					<div class="btn">Get It Now</div>
+					<div class="btn">Activated</div>
 				</div>
 			</section>
-		</section>
+			<!-- 无等级 -->
+			<section
+				class="upgrade"
+				v-else
+			>
+				<section class="top">
+					<h1>Start Your Unrestricted Creative Journey</h1>
+					<div class="img">
+						<img :src="huiyuanAandJifen.top.banner" />
+					</div>
+				</section>
+				<section class="upgrade_list">
+					<div
+						class="package_item"
+						v-for="(item,i) in huiyuanAandJifen.middle_upgrade"
+						:class="upgrade_class[i]['class']"
+						:key="item.level"
+					>
+						<h4 class="title">{{upgrade_class[i]['label']}}</h4>
+						<div class="price">
+							<span class="orgin_price">$14.99</span>
+							<span class="curr_price">$9.99</span>
+							<span class="unit">/month</span>
+						</div>
+						<div class="content">
+							<div class="item">
+								<span class="highlight">{{ item.credits }} credits</span> /month
+							</div>
+							<div
+								v-for="(val,index) in item.detail"
+								:key="index"
+								class="item"
+							>{{val}}</div>
+						</div>
+						<div class="btn">Get It Now</div>
+					</div>
+				</section>
+			</section>
+		</template>
 		<!-- Credit_list -->
 		<section
 			class="credit"
@@ -72,25 +95,6 @@
 			</section>
 		</section>
 		<!-- maine success -->
-		<section
-			class="upgrade_list"
-			v-show="currentTab == 3"
-		>
-			<div class="package_item item_plus item_maine">
-				<h4 class="title">You have successfully unlocked the following feature</h4>
-				<div class="content">
-					<div class="item">
-						<span class="highlight">{{ userCurLevelInfo.credits }} credits</span> /month
-					</div>
-					<div
-						v-for="(val,index) in userCurLevelInfo.detail"
-						:key="index"
-						class="item"
-					>{{val}}</div>
-				</div>
-				<div class="btn">Activated</div>
-			</div>
-		</section>
 		<!-- Tab -->
 		<section class="tab">
 			<div
@@ -563,22 +567,22 @@ export default {
 						object-fit: contain;
 					}
 
-					.evaluation{
+					.evaluation {
 						font-size: 13px;
 						margin: 0 0 20px 0;
 						color: $white;
 					}
-					.user{
+					.user {
 						margin: auto 0 0 0;
 						display: flex;
 						align-items: center;
 					}
-					.avatar{
+					.avatar {
 						width: 40px;
 						height: 40px;
 						border-radius: 50%;
 					}
-					.name{
+					.name {
 						font-size: 13px;
 						margin: 0 0 0 10px;
 						color: $gray;

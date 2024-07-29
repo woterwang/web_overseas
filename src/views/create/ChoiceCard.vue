@@ -6,8 +6,20 @@
 				alt=""
 			>
 		</div>
-		<div class="choice_card_desc">DescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescription</div>
+		<div class="choice_card_desc">{{item}}</div>
+		<!-- 需要解锁 -->
 		<div
+			class="choice_locked"
+			v-if="1"
+		>
+			<span class="icon"></span>
+			<span
+				class="btn"
+				@click="gotoUpgrade"
+			>Upgrade to unlock</span>
+		</div>
+		<div
+			v-else
 			class="choice_card_btn"
 			@click="applyCard"
 		>Try</div>
@@ -17,15 +29,33 @@
 <script>
 export default {
 	name: "ChoiceCard",
+	props: {
+		item: {
+			type: Object,
+			default: () => ({})
+		},
+	},
 	data () {
 		return {
 			status: 90,
 		}
 	},
+	vcomputed: {
+		//是否需要解锁
+		isLocked () {
+			return this.status === 90
+		},
+	},
 	methods: {
 		applyCard () {
 		},
 		gotoCreate () {
+		},
+		gotoUpgrade () {
+			//跳转到 /buy/0
+			this.$router.push({
+				path: '/buy/0',
+			})
 		},
 	},
 }
@@ -82,6 +112,41 @@ export default {
 			transition: all 0.5s;
 		}
 
+		.choice_locked {
+			opacity: 0;
+			position: absolute;
+			inset: 0;
+			background: rgba(0, 0, 0, 0.3);
+			//高斯模糊
+			backdrop-filter: blur(20px);
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			z-index: 1;
+
+			.icon {
+				width: 34px;
+				height: 30px;
+				background: url('~@/assets/svg/icon_king.svg') no-repeat;
+				background-size: contain;
+				margin-bottom: 20px;
+			}
+
+			.btn {
+				width: 190px;
+				height: 40px;
+				background: $gold;
+				color: $black;
+				border-radius: 20px;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				cursor: pointer;
+			}
+		}
+
+		// &:not(:has(.choice_locked)) {
 		&:hover {
 			.choice_card_desc {
 				opacity: 1;
@@ -89,7 +154,11 @@ export default {
 			.choice_card_btn {
 				opacity: 1;
 			}
+			.choice_locked {
+				opacity: 1;
+			}
 		}
+		// }
 	}
 	//媒体查询
 	@media screen and (max-width: 768px) {

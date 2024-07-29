@@ -2,7 +2,7 @@
  * @Author: hqwx.com
  * @Date: 2024-07-06 16:17:14
  * @LastEditors: WRG(woter_wang@live.com)
- * @LastEditTime: 2024-07-22 16:27:35
+ * @LastEditTime: 2024-07-29 15:12:08
  * @😍: 😃😃
 -->
 <template>
@@ -76,42 +76,30 @@
 							></router-link>
 						</h4>
 						<div class="list">
-							<span class="quantity_level active">1</span>
-							<span class="quantity_level disabled">2</span>
-							<span class="quantity_level">3</span>
-							<span class="quantity_level">4</span>
+							<span
+								class="quantity_level"
+								v-for='v in baseData.quantity'
+								:key='v.count'
+								:class="{
+									active: v.count == currentQuantity,
+									disabled: v.level_req > userLevel
+								}"
+								@click="changeQuantity(v)"
+							>{{ v.count }}</span>
 						</div>
 					</div>
 					<div class="option_item option_canvas">
 						<h4 class="option_title">Canvas</h4>
 						<div class="list">
-							<div class="canvas_type active">
-								<div class="canvas_type_1_1"></div>
-								<div class="canvas_type_text">1:1</div>
-							</div>
-							<div class="canvas_type">
-								<div class="canvas_type_2_3"></div>
-								<div class="canvas_type_text">2:3</div>
-							</div>
-							<div class="canvas_type">
-								<div class="canvas_type_3_2"></div>
-								<div class="canvas_type_text">3:2</div>
-							</div>
-							<div class="canvas_type">
-								<div class="canvas_type_3_4"></div>
-								<div class="canvas_type_text">3:4</div>
-							</div>
-							<div class="canvas_type">
-								<div class="canvas_type_4_3"></div>
-								<div class="canvas_type_text">4:3</div>
-							</div>
-							<div class="canvas_type">
-								<div class="canvas_type_9_16"></div>
-								<div class="canvas_type_text">9:16</div>
-							</div>
-							<div class="canvas_type">
-								<div class="canvas_type_16_9"></div>
-								<div class="canvas_type_text">16:9</div>
+							<div
+								class="canvas_type"
+								v-for="c in canvasTypes"
+								:key="c.name"
+								:class="{ active: c.id === currentCanvasType }"
+								@click="changeCanvasType(c)"
+							>
+								<div :class="c.class"></div>
+								<div class="canvas_type_text">{{c.name}}</div>
 							</div>
 						</div>
 					</div>
@@ -119,17 +107,18 @@
 						<h4 class="option_title">Style</h4>
 						<div class="list">
 							<div
-								v-for="(style,i) in optionStyleList"
-								:key="style.id"
-								:class="['style_item', { active: i === 0 }]"
+								v-for="(style,i) in baseData.style_model"
+								:key="style.model_id"
+								:class="['style_item', { active: style.model_id === currentStyleId }]"
+								@click="changeStyle(style)"
 							>
 								<div class="style_item_img">
 									<img
-										:src="style.img"
+										:src="style.banner"
 										alt=""
 									>
 								</div>
-								<div class="style_item_text">{{ style.text }}</div>
+								<div class="style_item_text">{{ style.name }}</div>
 							</div>
 						</div>
 					</div>
@@ -225,27 +214,34 @@
 							></router-link>
 						</h4>
 						<div class="list">
-							<span class="quantity_level active">1</span>
-							<span class="quantity_level disabled">2</span>
-							<span class="quantity_level">3</span>
-							<span class="quantity_level">4</span>
+							<span
+								class="quantity_level"
+								v-for='v in baseData.quantity'
+								:key='v.count'
+								:class="{
+									active: v.count == currentQuantity,
+									disabled: v.level_req > userLevel
+								}"
+								@click="changeQuantity(v)"
+							>{{ v.count }}</span>
 						</div>
 					</div>
 					<div class="option_item option_style">
 						<h4 class="option_title">Style</h4>
 						<div class="list">
 							<div
-								v-for="(style,i) in optionStyleList"
-								:key="style.id"
-								:class="['style_item', { active: i === 0 }]"
+								v-for="(style,i) in baseData.style_model"
+								:key="style.model_id"
+								:class="['style_item', { active: style.model_id === currentStyleId }]"
+								@click="changeStyle(style)"
 							>
 								<div class="style_item_img">
 									<img
-										:src="style.img"
+										:src="style.banner"
 										alt=""
 									>
 								</div>
-								<div class="style_item_text">{{ style.text }}</div>
+								<div class="style_item_text">{{ style.name }}</div>
 							</div>
 						</div>
 					</div>
@@ -288,8 +284,8 @@
 				>My Output</div>
 			</div>
 			<div class="right_content">
-				<ChoiceCard v-show="rightCurrTab == 0" />
-				<OutputCard v-show="rightCurrTab == 1" />
+				<ChoiceModule :list="baseData.t2i_editorschoice" v-show="rightCurrTab == 0" />
+				<OutputModule  v-show="rightCurrTab == 1" />
 			</div>
 		</section>
 		<!-- 编辑图片 -->
@@ -304,12 +300,49 @@
 <script>
 import VueSlider from 'vue-slider-component'
 import 'vue-slider-component/theme/default.css'
+const canvasTypes = [
+	{
+		id: 1,
+		name: '1:1',
+		class: 'canvas_type_1_1',
+	},
+	{
+		id: 2,
+		name: '2:3',
+		class: 'canvas_type_2_3',
+	},
+	{
+		id: 3,
+		name: '3:2',
+		class: 'canvas_type_3_2',
+	},
+	{
+		id: 4,
+		name: '3:4',
+		class: 'canvas_type_3_4',
+	},
+	{
+		id: 5,
+		name: '4:3',
+		class: 'canvas_type_4_3',
+	},
+	{
+		id: 6,
+		name: '9:16',
+		class: 'canvas_type_9_16',
+	},
+	{
+		id: 7,
+		name: '16:9',
+		class: 'canvas_type_16_9',
+	},
+]
 export default {
 	name: "Create",
 	components: {
 		VueSlider,
-		ChoiceCard: () => import('./ChoiceModule.vue'),
-		OutputCard: () => import('./OutputModule.vue'),
+		ChoiceModule: () => import('./ChoiceModule.vue'),
+		OutputModule: () => import('./OutputModule.vue'),
 		EditImg: () => import('./EditImage.vue'),
 	},
 	data () {
@@ -381,6 +414,11 @@ export default {
 			repairImgUrl: '',
 			//生成按钮是否可点击
 			abletoCreate: false,
+			currentQuantity: 1,
+			userLevel: 1,
+			currentStyleId: 'reality',
+			currentCanvasType: 1,
+			canvasTypes,
 			//来源类型数据
 			baseData: {},
 		}
@@ -467,6 +505,18 @@ export default {
 			this.editedImgCancel()
 			const { editedBase64, originBase64 } = data
 			console.log('🚀 ~ file: index.vue:406 ~ exportEditedImg ~ editedBase64:', editedBase64, originBase64);
+		},
+		changeQuantity (item) {
+			const { userLevel } = this
+			const { level_req, count } = item
+			if (level_req > userLevel) return;
+			this.currentQuantity = count
+		},
+		changeStyle (style) {
+			this.currentStyleId = style.model_id
+		},
+		changeCanvasType (type) {
+			this.currentCanvasType = type.id
 		},
 	},
 	watch: {
@@ -800,17 +850,18 @@ export default {
 				.option_style {
 					.style_item {
 						width: 84px;
-						height: 117px;
+						min-height: 117px;
 						margin: 0 10px 10px 0;
 						// border: 1px solid $black_02;
 						// background-color: $black_02;
 						display: flex;
 						flex-direction: column;
-						justify-content: center;
+						// justify-content: center;
 						align-items: center;
 						cursor: pointer;
 						border-radius: 6px;
 						.style_item_img {
+							flex-shrink: 0;
 							width: 84px;
 							height: 84px;
 							border-radius: 6px;
