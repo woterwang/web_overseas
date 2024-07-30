@@ -2,15 +2,15 @@
 	<div class="choice_card">
 		<div class="choice_card_img">
 			<img
-				src="../../assets/temp3.png"
+				:src="item.banner"
 				alt=""
 			>
 		</div>
-		<div class="choice_card_desc">{{item}}</div>
+		<div class="choice_card_desc">{{item.prompt}}</div>
 		<!-- 需要解锁 -->
 		<div
 			class="choice_locked"
-			v-if="1"
+			v-if="isLocked"
 		>
 			<span class="icon"></span>
 			<span
@@ -40,14 +40,16 @@ export default {
 			status: 90,
 		}
 	},
-	vcomputed: {
+	computed: {
 		//是否需要解锁
 		isLocked () {
-			return this.status === 90
+			return this.item.is_vip
 		},
 	},
 	methods: {
 		applyCard () {
+			//跳转到 /create/0
+			this.$emit('changeSub', this.item)
 		},
 		gotoCreate () {
 		},

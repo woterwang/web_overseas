@@ -2,7 +2,7 @@
  * @Author: hqwx.com
  * @Date: 2024-07-06 16:17:14
  * @LastEditors: WRG(woter_wang@live.com)
- * @LastEditTime: 2024-07-29 15:12:08
+ * @LastEditTime: 2024-07-30 09:11:55
  * @😍: 😃😃
 -->
 <template>
@@ -34,6 +34,7 @@
 							rows="10"
 							placeholder="Enter your prompt"
 							class=""
+							v-model="promptContent"
 						></textarea>
 					</div>
 					<div class="option_addimg">
@@ -173,6 +174,7 @@
 								cols="30"
 								rows="10"
 								placeholder="Enter your prompt"
+								v-model="promptContent"
 							></textarea>
 							<div class="textarea_tool">
 								<div class="textarea_tool_item clear_txt"></div>
@@ -284,8 +286,13 @@
 				>My Output</div>
 			</div>
 			<div class="right_content">
-				<ChoiceModule :list="baseData.t2i_editorschoice" v-show="rightCurrTab == 0" />
-				<OutputModule  v-show="rightCurrTab == 1" />
+				<ChoiceModule
+					:baseData="baseData"
+					:createType='leftCurrTab'
+					@choiceItem="choiceItem"
+					v-show="rightCurrTab == 0"
+				/>
+				<OutputModule v-show="rightCurrTab == 1" />
 			</div>
 		</section>
 		<!-- 编辑图片 -->
@@ -351,7 +358,7 @@ export default {
 			addimg_btn_text_to_img: true,
 			addimg_btn_repair: true,
 			//当前选项卡-左侧 - 0: Text to Image, 1: Image Repair
-			leftCurrTab: this.$route.params.type || 0,
+			leftCurrTab: Number(this.$route.params.type) || 0,
 			//当前选项卡-右侧 - 0: Editor's Choice, 1: My Output
 			rightCurrTab: 0,
 			//默认强度
@@ -421,6 +428,8 @@ export default {
 			canvasTypes,
 			//来源类型数据
 			baseData: {},
+			//promptContent
+			promptContent: '',
 		}
 	},
 	mounted () {
@@ -517,6 +526,12 @@ export default {
 		},
 		changeCanvasType (type) {
 			this.currentCanvasType = type.id
+		},
+		choiceItem (item) {
+			console.log('🚀 ~ file: index.vue:406 ~ exportEditedImg ~ editedBase64:', item);
+			const { id, style_model, prompt } = item
+			this.currentStyleId = style_model
+			this.promptContent = prompt
 		},
 	},
 	watch: {

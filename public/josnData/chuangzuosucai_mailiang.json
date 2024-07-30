@@ -362,15 +362,13 @@
       {
         "id": "reshape_3_real",
         "style_model": "reality",
-        "is_vip": true,
         "describe": "",
         "prompt": "mech, cyberpunk",
         "banner": "https://www.fantasylabsai.com/resource/test/artwork01.png"
       },
       {
         "id": "reshape_4_real",
-        "style_model": "reality",
-        "is_vip": true,
+        "style_model": "anime",
         "describe": "",
         "prompt": "rose tattoo",
         "banner": "https://www.fantasylabsai.com/resource/test/artwork01.png"
