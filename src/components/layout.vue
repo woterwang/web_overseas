@@ -2,7 +2,7 @@
  * @Author: hqwx.com
  * @Date: 2024-07-05 12:19:21
  * @LastEditors: WRG(woter_wang@live.com)
- * @LastEditTime: 2024-08-08 22:00:40
+ * @LastEditTime: 2024-08-08 22:06:24
  * @😍: 😃😃
 -->
 <template>
@@ -39,7 +39,7 @@ export default {
 			loginByMail({
 				token
 			}).then(res => {
-				console.log('🚀 ~ file: layout.vue:42 ~ loginByMail ~ res:', res);
+				// console.log('🚀 ~ file: layout.vue:42 ~ loginByMail ~ res:', res);
 			})
 		}
 	}
