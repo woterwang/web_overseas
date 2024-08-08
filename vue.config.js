@@ -2,7 +2,7 @@
  * @Author: hqwx.com
  * @Date: 2024-07-05 14:30:12
  * @LastEditors: WRG(woter_wang@live.com)
- * @LastEditTime: 2024-07-16 15:30:30
+ * @LastEditTime: 2024-08-08 11:36:02
  * @😍: 😃😃
  */
 const { defineConfig } = require('@vue/cli-service')
@@ -21,6 +21,13 @@ module.exports = defineConfig({
 		devServer: {
 			client: {
 				overlay: false,
+			},
+			proxy: {
+				"/api": {
+					target: "http://47.88.85.17:8080",
+					pathRewrite: { "^/api": "" },
+					changeOrigin: true,
+				},
 			},
 		}
 	}

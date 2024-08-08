@@ -2,7 +2,7 @@
  * @Author: hqwx.com
  * @Date: 2024-07-06 16:17:14
  * @LastEditors: WRG(woter_wang@live.com)
- * @LastEditTime: 2024-07-30 09:11:55
+ * @LastEditTime: 2024-08-07 12:24:15
  * @😍: 😃😃
 -->
 <template>
@@ -449,6 +449,7 @@ export default {
 		},
 		changeLeftTab (type) {
 			this.leftCurrTab = type
+			this.getSourceType();
 		},
 		changeRightTab (type) {
 			this.rightCurrTab = type

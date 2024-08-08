@@ -51,6 +51,7 @@
 </template>
 
 <script>
+import {login} from '@/utils/actions.js';
 export default {
 	name: 'Login',
 	data () {
@@ -66,7 +67,13 @@ export default {
 		}
 	},
 	mounted () {
-		// this.countdown();
+		let browerId = localStorage.getItem('browerId')
+		login({
+			account_id: 'woter_wang@live.com',
+			user_id: browerId,
+		}).then(res => {
+			console.log('🚀 ~ file: login.vue:33 ~ mounted ~ res', res);
+		})
 	},
 	methods: {
 		checkEmail () {

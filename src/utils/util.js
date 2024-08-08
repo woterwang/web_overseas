@@ -7,3 +7,4 @@ export function downloadFile(url, fileName) {
     a.click();
     document.body.removeChild(a);
 }
+
