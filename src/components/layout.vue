@@ -2,7 +2,7 @@
  * @Author: hqwx.com
  * @Date: 2024-07-05 12:19:21
  * @LastEditors: WRG(woter_wang@live.com)
- * @LastEditTime: 2024-08-08 22:06:24
+ * @LastEditTime: 2024-08-09 12:45:39
  * @😍: 😃😃
 -->
 <template>
@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { checkLogin, loginByMail } from '@/utils/actions.js';
+import { checkLogin, } from '@/utils/actions.js';
 export default {
 	name: "Layout",
 	components: {
@@ -25,21 +25,21 @@ export default {
 	},
 	data () {
 		return {
-			// linkData,
 		}
 	},
 	mounted () {
-		this.loginByMail()
+		this.checkLogin()
 	},
 	methods: {
-		loginByMail () {
-			const token = this.$route.query.token || ''
-			console.log('🚀 ~ file: layout.vue:37 ~ loginByMail ~ token:', token);
-			if (!token) return
-			loginByMail({
-				token
-			}).then(res => {
-				// console.log('🚀 ~ file: layout.vue:42 ~ loginByMail ~ res:', res);
+		checkLogin () {
+			checkLogin().then(res => {
+				const { status, data } = res
+				if (data.error_msg !== 'success') {
+					//清除登录信息
+					localStorage.removeItem('account_id')
+					//跳转到登录
+					this.$router.push('/login')
+				}
 			})
 		}
 	}

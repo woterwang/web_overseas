@@ -2,7 +2,7 @@
  * @Author: hqwx.com
  * @Date: 2024-07-05 12:03:07
  * @LastEditors: WRG(woter_wang@live.com)
- * @LastEditTime: 2024-08-08 22:02:32
+ * @LastEditTime: 2024-08-09 12:42:07
  * @😍: 😃😃
 -->
 <template>
@@ -257,7 +257,7 @@ export default {
 					.bottom {
 						width: 80%;
 
-						img{
+						img {
 							width: 100%;
 						}
 					}

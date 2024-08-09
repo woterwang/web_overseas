@@ -51,7 +51,8 @@
 </template>
 
 <script>
-import {login} from '@/utils/actions.js';
+import createFingerprint from '@/utils/createFingerprint.js';
+import { checkLogin, loginByMail, login } from '@/utils/actions.js';
 export default {
 	name: 'Login',
 	data () {
@@ -67,13 +68,7 @@ export default {
 		}
 	},
 	mounted () {
-		let browerId = localStorage.getItem('browerId')
-		login({
-			account_id: 'woter_wang@live.com',
-			user_id: browerId,
-		}).then(res => {
-			console.log('🚀 ~ file: login.vue:33 ~ mounted ~ res', res);
-		})
+		this.checkLogin()
 	},
 	methods: {
 		checkEmail () {
@@ -107,7 +102,7 @@ export default {
 			if (!this.ableLoginWithEmail) return;
 			if (!this.checkEmail()) return;
 			this.countdown();
-			this.showErrorTips('success', 'An email has been sent. Please check your inbox and click on the link to complete the login process (be sure to check junk/spam inbox).');
+			this.sendTokenToEmail();
 		},
 		showErrorTips (type = 'error', content = 'Please enter a valid email address') {
 			this.errorTipsInfo = {
@@ -118,6 +113,45 @@ export default {
 		},
 		hideErrorTips () {
 			this.errorTipsInfo.show = false;
+		},
+		loginWithToken (token = '') {
+			loginByMail({
+				token
+			}).then(res => {
+				const { status, data } = res
+				if (status == 200 && data.error_msg == 'success') {
+					//存储account_id到本地
+					if (data.account_id) localStorage.setItem('account_id', data.account_id);
+					//跳转到首页
+					this.$router.push('/');
+					return;
+				}
+			})
+		},
+		checkLogin () {
+			const token = this.$route.query.token || ''
+			if (!token) {
+				checkLogin().then(res => {
+					console.log('🚀 ~ file: login.vue:23 ~ checkLogin ~ res:', res);
+				})
+				return
+			}
+			this.loginWithToken(token)
+		},
+		async sendTokenToEmail () {
+			this.showErrorTips('error', null);
+			const browerId = await createFingerprint()
+			login({
+				account_id: this.email,
+				user_id: browerId,
+			}).then(res => {
+				const { status, data } = res
+				if (status !== 200 || data.error_msg !== 'success') {
+					this.showErrorTips('error', data.error_msg);
+					return;
+				}
+				this.showErrorTips('success', 'An email has been sent. Please check your inbox and click on the link to complete the login process (be sure to check junk/spam inbox).');
+			})
 		}
 	}
 }

@@ -2,7 +2,7 @@
  * @Author: hqwx.com
  * @Date: 2024-07-04 21:34:03
  * @LastEditors: WRG(woter_wang@live.com)
- * @LastEditTime: 2024-07-16 16:21:47
+ * @LastEditTime: 2024-08-09 12:37:58
  * @😍: 😃😃
 -->
 <template>
@@ -31,7 +31,10 @@
 			:to="creditUrl"
 			class="nav_item member_item member_xp"
 		>888</router-link>
-		<div class="nav_item user_head">
+		<div
+			class="nav_item user_head"
+			v-if="accountId"
+		>
 			<div class="user_drop_menu">
 				<div
 					to="/user"
@@ -39,7 +42,7 @@
 				>
 					<div class="info">
 						<span>User ID</span>
-						<span>SDKLFIEKK3434NSDR</span>
+						<span>{{accountId}}</span>
 					</div>
 				</div>
 				<a
@@ -47,38 +50,52 @@
 					:href="'mailto:'+linkData.email"
 				>Support</a>
 				<div
-					to="/logout"
 					class="nav_item logout"
+					@click="logout"
 				>Logout</div>
 			</div>
 		</div>
 		<router-link
 			to="/login"
 			class="nav_item login_btn"
-			v-if="!userLogin()"
+			v-else
 		>Login</router-link>
 	</nav>
 </template>
 <script>
 const linkData = require('@jonsData/dibulan.json');
+import { logout } from '@/utils/actions.js';
 export default {
 	name: "PageNav",
 	functional: false,
 	data () {
 		return {
 			linkData,
+			accountId: localStorage.getItem('account_id') || '',
 			// 1、如果用户已有会员等级，则点击顶栏的积分icon时，会直接切到积分页；
 			// 2、如用户未有等级，则点击顶栏的升级或积分icon，都是跳转升级页，主动点击升级页下方的“credit”的tab才会切换到积分页；
 			creditUrl: this.userLevel() ? '/buy/1' : '/buy/0',
 			//用户购买某个等级后，其他两个等级都会消失，只剩当前等级居中显示；且上方不显示级别和价格信息
-			upgradeUrl: this.userLevel() ? '/buy/3' : '/buy/0',
+			upgradeUrl: this.userLevel() ? '/buy/1' : '/buy/0',
 		}
 	},
 	methods: {
 		//用户是否有会员等级
 		userLevel: () => Math.random() > 0.5 ? true : false,
-		//用户是否登录
-		userLogin: () => true,
+		logout () {
+			localStorage.removeItem('account_id');
+			logout({
+				account_id: this.accountId,
+			}).then(res => {
+				console.log('🚀 ~ file: pageNav.vue ~ logout ~ res:', res);
+			});
+			this.$router.push('/login');
+		},
+	},
+	watch: {
+		['$route'](newValue, oldValue) {
+			this.accountId = localStorage.getItem('account_id') || '';
+		}
 	},
 }
 </script>
